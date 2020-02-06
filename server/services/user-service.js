@@ -42,9 +42,6 @@ async function login(email, password) {
     }
 }
 
-async function getUserByEmail(email) {
-    return await db.get(`SELECT * FROM user WHERE email = ?`, email);
-}
 
 async function addUser(username, email, password) {
     try {
@@ -59,15 +56,58 @@ async function addUser(username, email, password) {
     }
 }
 
-async function deleteAll(){
+async function deleteAll() {
+    try {
         await db.run('DELETE FROM user');
+    } catch (er) {
+        throw (er);
+    }
 }
 
+
+
+async function getUserById(id) {
+    try {
+        let user = await db.get(`SELECT * FROM user WHERE id = ? `, id);
+        return user;
+    } catch (er) {
+        throw Error(er);
+    }
+}
+
+async function getAll() {
+    try {
+        let users = await db.get('SELECT * FROM user');
+        return users;
+    } catch (er) {
+        throw Error(er);
+    }
+}
+
+async function getUserByEmail(email) {
+    return await db.get(`SELECT * FROM user WHERE email = ?`, email);
+}
+
+async function deleteById(id) {
+    try {
+        await db.run(`DELETE FROM user WHERE id = ?`, id);
+        let check_usr = await getUserById(id);
+        if (check_usr)
+            throw Error("User not deleted");
+    }
+    catch (er) {
+        throw Error(er);
+    }
+}
 
 module.exports = {
     addUser,
     login,
     deleteAll,
+    deleteById,
+    getUserById,
+    getAll,
+    getUserByEmail,
 }
 
 

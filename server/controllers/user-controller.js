@@ -21,24 +21,57 @@ function register(req, res) {
         .catch((er) => res.status(409).send(er));
 }
 
-async function login(req, res) {    
-    try{
-        const authorization = await user_service.login(req.body.email,req.body.password);
-        if(authorization == null)
+async function login(req, res) {
+    try {
+        const authorization = await user_service.login(req.body.email, req.body.password);
+        if (authorization == null)
             return res.status(401).send(authorization);
         return res.status(200).send(authorization);
     }
-    catch(er){
-        return res.status(500).send('error on server'+ er);
+    catch (er) {
+        console.log(er);
+        return res.status(500).send('error on server' + er);
     }
 }
 
-function deleteAll(req,res){
-    try{
+function deleteAll(req, res) {
+    try {
         user_service.deleteAll();
         return res.status(200).send("successfully deleted");
-    }catch(er){
-        return res.status(500).send("unsuccessful");
+    } catch (er) {
+        return res.status(500).send(er);
+    }
+}
+
+function deleteById(req, res) {
+    try {
+        user_service.deleteById(req.body.id);
+        return res.status(200).send("successfully deleted user");
+    } catch (er) {
+        return res.status(500).send(er);
+    }
+}
+
+async function getUserById(req, res) {
+    try {
+        let user = await user_service.getUserById(req.body.id);
+        if (user)
+            return res.status(200).send(user);
+        return res.status(404).send("NOT FOUND");
+    } catch (er) {
+        return res.status(500).send(er);
+    }
+}
+
+function getAll(req, res) {
+    try {
+        let users = user_service.getAll();
+        if (users)
+            return res.status(200).send(users);
+        res.status(404).send("nothing found");
+    } catch (er) {
+        console.log(er);
+        return res.status(500).send(er);
     }
 }
 
@@ -46,4 +79,7 @@ module.exports = {
     login,
     register,
     deleteAll,
+    getUserById,
+    getAll,
+    deleteById,
 };

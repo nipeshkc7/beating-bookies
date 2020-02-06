@@ -8,15 +8,15 @@ let expect = chai.expect;
 chai.use(chaiHttp);
 
 
-//Testing API :: /user routes
-
+//Testing API :: user routes
 
 describe("User controller test :", () => {
-    before((done) => { 
+    before((done) => {
         user_service.deleteAll();
         done();
     });
 
+    //Register new user
     describe('POST:: /user)', () => {
         it("POST:: /user/register/ Should successfully register user", done => {
             let user = {
@@ -34,6 +34,7 @@ describe("User controller test :", () => {
                 });
         });
 
+        //Add duplicate values
         it("POST:: /user/register/ Should not accept duplicate values", done => {
             let user = {
                 name: "Arpan Kc",
@@ -49,7 +50,8 @@ describe("User controller test :", () => {
                     done();
                 });
         });
-        
+
+        //Login registered user
         it("POST:: /user/login registered user should be able to login successfully", done => {
             let user = {
                 email: "niekc7@gmail.com",
@@ -65,6 +67,7 @@ describe("User controller test :", () => {
                 });
         });
 
+        //Login unregistered user
         it("POST:: /user/login unregistered user should NOT be able to login successfully", done => {
             let user = {
                 email: "unregistered@gmail.com",
@@ -76,6 +79,42 @@ describe("User controller test :", () => {
                 .send(user)
                 .end((err, res) => {
                     expect(res).to.have.status(401);
+                    done();
+                });
+        });
+
+        //Get All Users
+        it("GET:: /user/getAll Get list of all users", done => {
+            chai.request(server)
+                .get('/user/GetAll')
+                .send()
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+
+        //Get User By Id
+        it("GET:: /user/getUserById Get user by id", done => {
+            let id = '1';
+            chai.request(server)
+                .get('/user/getUserById')
+                .send({ id: id })
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+
+
+        //Remove user by id
+        it("POST:: /user/delete/:id delete User by Id", done => {
+            let id = '1';
+            chai.request(server)
+                .post('/user/delete')
+                .send({ id: id })
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
                     done();
                 });
         });
