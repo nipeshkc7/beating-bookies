@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4>Login</h4>
+    {{server_msg}}
     <form>
       <label for="email">E-Mail Address</label>
       <div>
@@ -25,6 +26,7 @@ export default {
     return {
       email: '',
       password: '',
+      server_msg: '',
     };
   },
   methods: {
@@ -32,15 +34,22 @@ export default {
       e.preventDefault();
       if (this.password.length > 0) {
         this.$http
-          .post('http://localhost:4000/login', {
+          .post('http://localhost:4000/user/login', {
             email: this.email,
             password: this.password,
           })
           .then((response) => {
-            console.log(response);
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            localStorage.setItem('jwt', response.data.token);
+
+            if (localStorage.getItem('jwt') != null) {
+              this.$router.push('/secure');
+            }
           })
           .catch((error) => {
-            console.error(error.response);
+            console.error(error.response.status);
+            if (error.response.status === 401) this.server_msg = 'Wrong username or password';
+            else this.server_msg = 'Server Error . Please try again later';
           });
       }
     },

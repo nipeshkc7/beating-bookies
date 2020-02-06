@@ -1,6 +1,7 @@
 <template>
   <div>
     <h4>Register</h4>
+    {{server_msg}}
     <form>
       <label for="name">Name</label>
       <div>
@@ -47,6 +48,7 @@ export default {
       password: '',
       password_confirmation: '',
       is_admin: null,
+      server_msg: '',
     };
   },
   methods: {
@@ -57,9 +59,9 @@ export default {
         this.password === this.password_confirmation
         && this.password.length > 0
       ) {
-        let url = 'http://localhost:4000/register';
+        let url = 'http://localhost:4000/user/register';
         if (this.is_admin !== null || this.is_admin === 1) {
-          url = 'http://localhost:4000/register-admin';
+          url = 'http://localhost:4000/user/register';
         }
         this.$http
           .post(url, {
@@ -69,25 +71,19 @@ export default {
             is_admin: this.is_admin,
           })
           .then((response) => {
-            localStorage.setItem('user', JSON.stringify(response.data.user));
-            localStorage.setItem('jwt', response.data.token);
-
-            if (localStorage.getItem('jwt') != null) {
-              this.$emit('loggedIn');
-              if (this.$route.params.nextUrl != null) {
-                this.$router.push(this.$route.params.nextUrl);
-              } else {
-                this.$router.push('/');
-              }
+            if (response.status === 200) {
+              this.server_msg = response.data;
+              this.email = '';
+              this.password = '';
+              this.password_confirmation = '';
             }
           })
-          .catch((error) => {
-            console.error(error);
+          .catch(() => {
+            this.server_msg = 'Failed to register new user';
           });
       } else {
         this.password = '';
         this.passwordConfirm = '';
-
         return alert('Passwords do not match');
       }
       return alert('');
