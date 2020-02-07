@@ -14,7 +14,7 @@ async function createDb() {
                  id integer PRIMARY KEY, 
                  name text, 
                  email text UNIQUE, 
-                user_pass text,
+                 user_pass text,
                  is_admin integer)`
         await db.run(sql);
     }
@@ -42,6 +42,39 @@ async function login(email, password) {
     }
 }
 
+async function loginOauth(email) {
+    try {
+        let user = await getUserByEmail(email);
+        if (!user) {
+            await addUser(email, email, '');
+        }
+        let token = jwt.sign({ id: user.id }, config.secret, {
+            expiresIn: 86400 // expires in 24 hours
+        });
+        return { auth: true, token: token, user: user };
+    } catch (er) {
+        throw error(er);
+    }
+}
+
+//async function Oauth_login(email){
+//   let user = await getUserByEmail(email);
+//     if(!user){
+//         addUser(email,email, ,)
+//     }
+// }
+
+async function update_user(old_name, old_email, old_password, new_name, new_email, new_password) {
+    let find_user = await getUserByEmail(old_email);
+    if (!find_user) {
+        return null;
+    }
+    await db.run('update user set (name, email, user_pass) = (?,?,?) where id = ?', new_name, new_email, bcrypt.hashSync(new_password, 8), find_user.id);
+    find_user = await getUserById(find_user.id);
+    if (find_user.name === new_name && bcrypt.compareSync(new_password, find_user.user_pass))
+        return 'Ok'
+    throw Error('Email could not be updated');
+}
 
 async function addUser(username, email, password) {
     try {
@@ -63,8 +96,6 @@ async function deleteAll() {
         throw (er);
     }
 }
-
-
 
 async function getUserById(id) {
     try {
@@ -108,6 +139,8 @@ module.exports = {
     getUserById,
     getAll,
     getUserByEmail,
+    update_user,
+    loginOauth,
 }
 
 

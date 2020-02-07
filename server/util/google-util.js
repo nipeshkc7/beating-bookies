@@ -1,23 +1,9 @@
 const { google } = require('googleapis');
 
-/*******************/
-/** CONFIGURATION **/
-/*******************/
-
-// const googleConfig = {
-//     clientId: process.env.GOOGLE_CLIENT_ID, // e.g. asdfghjkljhgfdsghjk.apps.googleusercontent.com
-//     clientSecret: process.env.GOOGLE_CLIENT_SECRET, // e.g. _ASDFA%DFASDFASDFASD#FAD-
-//     redirect: process.env.GOOGLE_REDIRECT, // this must match your google api settings
-// };
-
 const defaultScope = [
     'https://www.googleapis.com/auth/userinfo.email',
     'https://www.googleapis.com/auth/plus.me',
 ];
-
-/*************/
-/** HELPERS **/
-/*************/
 
 const oauth2 = google.oauth2('v2');
 
@@ -27,17 +13,12 @@ const Oauth2Client = new google.auth.OAuth2(
     process.env.GOOGLE_REDIRECT
 );
 
-function getConnectionUrl() {
-    return Oauth2Client.generateAuthUrl({
+async function getConnectionUrl() {
+    const url= await Oauth2Client.generateAuthUrl({
         access_type: 'offline',
         prompt: 'consent',
         scope: defaultScope
     });
-}
-// Create a Google URL and send to the client to log in the user.
-
-function urlGoogle() {
-    const url = getConnectionUrl();
     return url;
 }
 
@@ -52,6 +33,6 @@ async function getUserDetails(code) {
 }
 
 module.exports = {
-    urlGoogle,
+    getConnectionUrl,
     getUserDetails,
 };

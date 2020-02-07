@@ -36,7 +36,14 @@ describe("User controller test :", () => {
 
         //Add duplicate values
         it("POST:: /user/register/ Should not accept duplicate values", done => {
-            let user = {
+            
+            let old_user = {
+                name: "Arpan Kc",
+                email: "niekc7@gmail.com",
+                password: "nipesh62297",
+            };
+
+            let new_user = {
                 name: "Arpan Kc",
                 email: "niekc7@gmail.com",
                 password: "nipesh62297",
@@ -44,7 +51,8 @@ describe("User controller test :", () => {
 
             chai.request(server)
                 .post('/user/register')
-                .send(user)
+                .send({old: old_user,
+                        new: new_user})
                 .end((err, res) => {
                     expect(res).to.have.status(409);
                     done();
@@ -100,6 +108,25 @@ describe("User controller test :", () => {
             chai.request(server)
                 .get('/user/getUserById')
                 .send({ id: id })
+                .end((err, res) => {
+                    expect(res).to.have.status(200);
+                    done();
+                });
+        });
+
+        it("POST:: /user/updateUser Update user", done => {
+            let user = {
+                new_name: "Arpan Kc",
+                new_email: "nippon@gmail.com",
+                new_password: "nipesh62297",
+                old_name: "Arpan Kc",
+                old_email: "niekc7@gmail.com",
+                old_password: "nipesh62297",            
+            };
+
+            chai.request(server)
+                .post('/user/updateUser')
+                .send(user)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     done();

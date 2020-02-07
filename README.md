@@ -48,11 +48,12 @@ GOOGLE_CLIENT_SECRET=
 GOOGLE_REDIRECT_URL=
 
 DATABASE=           //name of the database
+CLIENT_URL=
 ```
 
 
 ### TODO:
 
 1. Setup previlage based access to APIS
-2. Oauth 2.0 Integration
+2. Setup Oauth2.0 in the frontend
 3. Apply a front end library
