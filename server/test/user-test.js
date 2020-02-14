@@ -1,4 +1,4 @@
-require('dotenv').config({ path: './test.env' });
+require('dotenv').config({ path: '../test.env'});
 
 let user_service = require('../services/user-service');
 let chai = require('chai');
@@ -6,7 +6,6 @@ let chaiHttp = require('chai-http');
 let server = require('../index');
 let expect = chai.expect;
 chai.use(chaiHttp);
-
 
 //Testing API :: user routes
 

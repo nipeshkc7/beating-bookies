@@ -47,13 +47,14 @@ async function loginOauth(email) {
         let user = await getUserByEmail(email);
         if (!user) {
             await addUser(email, email, '');
+            user = await getUserByEmail(email);
         }
         let token = jwt.sign({ id: user.id }, config.secret, {
             expiresIn: 86400 // expires in 24 hours
         });
         return { auth: true, token: token, user: user };
     } catch (er) {
-        throw error(er);
+        throw Error(er);
     }
 }
 

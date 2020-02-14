@@ -15,6 +15,7 @@
       </div>
       <div>
         <button type="submit" @click="handleSubmit">Login</button>
+        <button type="submit" @click="redirectToGoogle">Continue with google</button>
       </div>
     </form>
   </div>
@@ -50,6 +51,19 @@ export default {
             console.error(error.response.status);
             if (error.response.status === 401) this.server_msg = 'Wrong username or password';
             else this.server_msg = 'Server Error . Please try again later';
+          });
+      }
+    },
+    redirectToGoogle() { // redirects to google login
+      if (this.password.length > 0) {
+        this.$http
+          .post('http://localhost:4000/user/oauth/redirect')
+          .then((response) => { // response = { url: google Redirect url }
+            window.location = response.data.url;
+          })
+          .catch((error) => {
+            console.error(error.response.status);
+            this.server_msg = 'Server Error . Please try again later';
           });
       }
     },

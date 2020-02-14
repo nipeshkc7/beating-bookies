@@ -10,8 +10,8 @@ router.post('/delete', user_controller.deleteById);
 router.get('/getAll', user_controller.getAll);
 router.get('/getUserById', user_controller.getUserById);
 router.post('/updateUser', user_controller.update_user);
-router.get('/oauth', user_controller.google_login);
-router.get('/oauth/redirect', user_controller.get_url_gauth);
+router.post('/oauth', user_controller.google_login);
+router.post('/oauth/redirect', user_controller.get_url_gauth);
 
 
 module.exports = router;

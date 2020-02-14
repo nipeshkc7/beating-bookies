@@ -18,9 +18,8 @@ async function get_user_details(req, res, next) {
 }
 
 async function google_login(req, res) {
-    const usr = await google.getUserDetails(req.query.code);
-    console.log(usr.data.email);
     try {
+        const usr = await google.getUserDetails(req.body.code);
         if (usr.data.verified_email == true) {
             let authorization = await user_service.loginOauth(usr.data.email);
             res.status(200).json(authorization);

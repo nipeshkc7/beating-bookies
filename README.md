@@ -55,5 +55,4 @@ CLIENT_URL=
 ### TODO:
 
 1. Setup previlage based access to APIS
-2. Setup Oauth2.0 in the frontend
-3. Apply a front end library
+2. Apply a front end library

@@ -1,8 +1,9 @@
 import Vue from 'vue';
 import VueRouter from 'vue-router';
-import LoginComponent from '../views/login.vue';
+import login from '../views/login.vue';
 import secure from '../views/secure.vue';
 import register from '../views/register.vue';
+import redirectLogin from '../views/redirectLogin.vue';
 
 Vue.use(VueRouter);
 
@@ -16,7 +17,15 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: LoginComponent,
+    component: login,
+    meta: {
+      guest: true,
+    },
+  },
+  {
+    path: '/googleredirect',
+    name: 'redirectLogin',
+    component: redirectLogin,
     meta: {
       guest: true,
     },
