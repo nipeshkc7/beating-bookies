@@ -1,23 +1,45 @@
 <template>
-  <div>
-    <h4>Login</h4>
-    {{server_msg}}
-    <form>
-      <label for="email">E-Mail Address</label>
-      <div>
-        <input id="email" type="email" v-model="email" required autofocus />
+  <div class="columns is-desktop">
+    <div class="card column is-4 is-offset-4" id="loginCard">
+      <div class="card-header">
+        <p class="card-header-title">Login to Matched Betting Tracker</p>
       </div>
-      <div>
-        <label for="password">Password</label>
-        <div>
-          <input id="password" type="password" v-model="password" required />
-        </div>
+      <div class="card-content">
+        <form id="input-box">
+          <section>
+            <b-field label="Email" label-position="Inside">
+              <b-input icon="email" id="email" type="email" v-model="email" required></b-input>
+            </b-field>
+            <b-field label="Password" label-position="Inside">
+              <b-input icon="key" id="password" type="password" v-model="password" required>
+              </b-input>
+            </b-field>
+            <br />
+            <div class="buttons">
+              <b-button native-type="submit" type="is-primary" @click="handleSubmit">
+                Login
+              </b-button>
+              <router-link to="register">
+                <b-button outlined type="is-primary">
+                  Register
+                </b-button>
+              </router-link>
+            </div>
+            <p>
+              <b>OR,</b>
+            </p>
+            <br />
+            <b-button
+              size="is-medium"
+              icon-left="google"
+              type="is-secondary"
+              @click="redirectToGoogle">
+              &nbsp;&nbsp;&nbsp;Sign in with Google
+            </b-button>
+          </section>
+        </form>
       </div>
-      <div>
-        <button type="submit" @click="handleSubmit">Login</button>
-        <button type="button" @click="redirectToGoogle">Continue with google</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -54,10 +76,12 @@ export default {
           });
       }
     },
-    redirectToGoogle() { // redirects to google login
+    redirectToGoogle() {
+      // redirects to google login
       this.$http
         .post('http://localhost:4000/user/oauth/redirect')
-        .then((response) => { // response = { url: google Redirect url }
+        .then((response) => {
+          // response = { url: google Redirect url }
           window.location = response.data.url;
         })
         .catch((error) => {
@@ -68,3 +92,9 @@ export default {
   },
 };
 </script>
+
+<style>
+#loginCard {
+  margin-top: 20px;
+}
+</style>
