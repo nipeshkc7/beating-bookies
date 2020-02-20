@@ -41,7 +41,7 @@ npm test
 
 # Required environment variables
 
-Recommended you have a .env file inside the server folder with the following variables:
+Recommended you have a .env file inside the root folder with the following variables:
 ```
 GOOGLE_CLIENT_ID= 
 GOOGLE_CLIENT_SECRET=
@@ -51,8 +51,11 @@ DATABASE=           //name of the database
 CLIENT_URL=
 ```
 
+NODE_ENV =      // 'dev' or 'test' or 'prod'
+
 
 ### TODO:
 
-1. Setup previlage based access to APIS
-2. Apply a front end library
+1. Apply a front end library
+2. Create database schema
+3. Add CRUD features for the new database tables

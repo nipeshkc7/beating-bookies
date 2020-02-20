@@ -15,7 +15,7 @@
       </div>
       <div>
         <button type="submit" @click="handleSubmit">Login</button>
-        <button type="submit" @click="redirectToGoogle">Continue with google</button>
+        <button type="button" @click="redirectToGoogle">Continue with google</button>
       </div>
     </form>
   </div>
@@ -55,17 +55,15 @@ export default {
       }
     },
     redirectToGoogle() { // redirects to google login
-      if (this.password.length > 0) {
-        this.$http
-          .post('http://localhost:4000/user/oauth/redirect')
-          .then((response) => { // response = { url: google Redirect url }
-            window.location = response.data.url;
-          })
-          .catch((error) => {
-            console.error(error.response.status);
-            this.server_msg = 'Server Error . Please try again later';
-          });
-      }
+      this.$http
+        .post('http://localhost:4000/user/oauth/redirect')
+        .then((response) => { // response = { url: google Redirect url }
+          window.location = response.data.url;
+        })
+        .catch((error) => {
+          console.error(error.response.status);
+          this.server_msg = 'Server Error . Please try again later';
+        });
     },
   },
 };

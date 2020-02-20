@@ -23,7 +23,7 @@ async function getConnectionUrl() {
 }
 
 async function getUserDetails(code) {
-    const { tokens } = await Oauth2Client.getToken(code);
+    const { tokens } = await Oauth2Client.getToken(code); 
     Oauth2Client.setCredentials(tokens);
     //retreive user info
     const user_info = await oauth2.userinfo.get({ auth: Oauth2Client });

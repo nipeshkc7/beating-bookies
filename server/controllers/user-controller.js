@@ -31,18 +31,6 @@ async function google_login(req, res) {
         console.log(er);
     }
 }
-// async function google_login(req, res, next) {
-//     try {
-//         const usr = await google.getUserDetails(req.query.code);
-//         find_user = user_service.getUserByEmail(usr.data.email);
-//         if (find_user) {
-//             res.json("User already exists");                                         
-//         }
-//         res.json(usr);
-//     } catch (e) {
-//         return next(e);
-//     }
-// }
 
 async function update_user(req, res) {
     try {
@@ -55,7 +43,6 @@ async function update_user(req, res) {
         return res.status(500).end("Cannot update user details");
     }
 }
-
 
 function register(req, res) {
     user_service.addUser(req.body.name, req.body.email, req.body.password)

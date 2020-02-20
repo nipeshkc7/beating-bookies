@@ -1,26 +1,49 @@
 <template>
-    <div id="secure">
-        <h1>Secure Area</h1>
-        <p>
-            This is a secure area
-        </p>
-    </div>
+  <div id="secure">
+    <h1>Secure Area</h1>
+    <p>This is a secure area</p>
+    <button type="button" @click="fire">Fire</button>
+  </div>
 </template>
 
 <script>
 export default {
   name: 'Secure',
   data() {
-    return {};
+    return {
+      server_msg: '',
+    };
+  },
+  methods: {
+    fire() {
+      this.$http
+        .post('http://localhost:4000/user/login', {
+          email: 'nipeshkc7@gmail.com',
+          password: 'nipesh62297',
+        })
+        .then((response) => {
+          localStorage.setItem('user', JSON.stringify(response.data.user));
+          localStorage.setItem('jwt', response.data.token);
+
+          if (localStorage.getItem('jwt') != null) {
+            this.$router.push('/secure');
+          }
+        })
+        .catch((error) => {
+          console.error(error.response.status);
+          if (error.response.status === 401) this.server_msg = 'Wrong username or password';
+          else this.server_msg = 'Server Error . Please try again later';
+        });
+    },
   },
 };
 </script>
 
 <style scoped>
-    #secure {
-        background-color: #FFFFFF;
-        border: 1px solid #CCCCCC;
-        padding: 20px;
-        margin-top: 10px;
-    }
+#secure {
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  padding: 20px;
+  margin-top: 10px;
+}
 </style>
