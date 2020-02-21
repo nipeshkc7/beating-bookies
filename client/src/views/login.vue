@@ -2,28 +2,34 @@
   <div class="columns is-desktop">
     <div class="card column is-4 is-offset-4" id="loginCard">
       <div class="card-header">
-        <p class="card-header-title">Login to Matched Betting Tracker</p>
+        <p class="card-header-title">Sign In with Email</p>
       </div>
       <div class="card-content">
         <form id="input-box">
           <section>
             <b-field label="Email" label-position="Inside">
-              <b-input icon="email" id="email" type="email" v-model="email" required></b-input>
+              <b-input
+              icon="email" placeholder="Enter your email" id="email" type="email" v-model="email"
+              required>
+              </b-input>
             </b-field>
             <b-field label="Password" label-position="Inside">
-              <b-input icon="key" id="password" type="password" v-model="password" required>
+              <b-input
+              icon="key"
+              placeholder="Enter your Password" id="password" type="password"
+              v-model="password" required>
               </b-input>
             </b-field>
             <br />
-            <div class="buttons">
-              <b-button native-type="submit" type="is-primary" @click="handleSubmit">
-                Login
-              </b-button>
-              <router-link to="register">
-                <b-button outlined type="is-primary">
-                  Register
+            <div
+              class="buttons"
+            >
+                <b-button native-type="submit" type="is-primary" @click="handleSubmit">
+                  Login
                 </b-button>
-              </router-link>
+                <router-link to="register">
+                  <b-button outlined type="is-text">Register</b-button>
+                </router-link>
             </div>
             <p>
               <b>OR,</b>
@@ -33,9 +39,8 @@
               size="is-medium"
               icon-left="google"
               type="is-secondary"
-              @click="redirectToGoogle">
-              &nbsp;&nbsp;&nbsp;Sign in with Google
-            </b-button>
+              @click="redirectToGoogle"
+            >&nbsp;&nbsp;&nbsp;Sign in with Google</b-button>
           </section>
         </form>
       </div>
@@ -70,9 +75,19 @@ export default {
             }
           })
           .catch((error) => {
-            console.error(error.response.status);
-            if (error.response.status === 401) this.server_msg = 'Wrong username or password';
-            else this.server_msg = 'Server Error . Please try again later';
+            if (error.response.status === 401) {
+              this.$buefy.notification.open({
+                message: 'Email or password does not exist.',
+                position: 'is-top',
+                type: 'is-danger',
+              });
+            } else {
+              this.$buefy.notification.open({
+                message: 'Server error. Please try again later',
+                position: 'is-top',
+                type: 'is-danger',
+              });
+            }
           });
       }
     },

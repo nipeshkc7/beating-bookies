@@ -56,6 +56,5 @@ NODE_ENV =      // 'dev' or 'test' or 'prod'
 
 ### TODO:
 
-1. Apply a front end library for register page
-2. Create database schema
-3. Add CRUD features for the new database tables
+1. Create database models and services
+2. Add CRUD features for the new database tables

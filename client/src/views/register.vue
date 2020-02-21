@@ -1,40 +1,48 @@
 <template>
-  <div>
-    <h4>Register</h4>
-    {{server_msg}}
-    <form>
-      <label for="name">Name</label>
-      <div>
-        <input id="name" type="text" v-model="name" required autofocus />
+  <div class="columns is-desktop">
+    <div class="card column is-4 is-offset-4" id="loginCard">
+      <div class="card-header">
+        <p class="card-header-title">Register</p>
       </div>
-
-      <label for="email">E-Mail Address</label>
-      <div>
-        <input id="email" type="email" v-model="email" required />
+      <div class="card-content">
+        <form id="input-box">
+          <section>
+            <b-field label="Name" label-position="Inside">
+              <b-input icon="name" id="name" type="text" v-model="name" required>
+              </b-input>
+            </b-field>
+            <b-field label="Email" label-position="Inside">
+              <b-input icon="email" id="email" type="email" v-model="email" required>
+              </b-input>
+            </b-field>
+            <b-field label="Password" label-position="Inside">
+              <b-input icon="key" id="password" type="password" v-model="password" required>
+              </b-input>
+            </b-field>
+            <b-field label="Password" label-position="Inside">
+              <b-input
+               icon="key"
+               id="password-confirm"
+               type="password"
+               v-model="password_confirmation"
+               required>
+              </b-input>
+            </b-field>
+            <br />
+            <div
+              class="buttons"
+            >
+                <b-button native-type="submit" type="is-primary" @click="handleSubmit">
+                  Register
+                </b-button>
+                <router-link to="login">
+                  <b-button outlined type="is-text"> Go Back</b-button>
+                </router-link>
+            </div>
+          </section>
+        </form>
       </div>
-
-      <label for="password">Password</label>
-      <div>
-        <input id="password" type="password" v-model="password" required />
-      </div>
-
-      <label for="password-confirm">Confirm Password</label>
-      <div>
-        <input id="password-confirm" type="password" v-model="password_confirmation" required />
-      </div>
-
-      <label for="password-confirm">Is this an administrator account?</label>
-      <div>
-        <select v-model="is_admin">
-          <option value="1">Yes</option>
-          <option value="0">No</option>
-        </select>
-      </div>
-
-      <div>
-        <button type="submit" @click="handleSubmit">Register</button>
-      </div>
-    </form>
+    </div>
   </div>
 </template>
 
@@ -71,22 +79,33 @@ export default {
             is_admin: this.is_admin,
           })
           .then((response) => {
+            console.log(response.status);
             if (response.status === 200) {
               this.server_msg = response.data;
               this.email = '';
               this.password = '';
               this.password_confirmation = '';
+              this.$buefy.notification.open({
+                message: 'Successfully registered new user. Login to continue.',
+                type: 'is-success',
+              });
+              this.$router.push('/login');
             }
           })
           .catch(() => {
-            this.server_msg = 'Failed to register new user';
+            this.$buefy.notification.open({
+              message: 'Unable to register user.',
+              type: 'is-danger',
+            });
           });
       } else {
         this.password = '';
         this.passwordConfirm = '';
-        return alert('Passwords do not match');
+        this.$buefy.notification.open({
+          message: 'Passwords do not match',
+          type: 'is-danger',
+        });
       }
-      return alert('');
     },
   },
 };
