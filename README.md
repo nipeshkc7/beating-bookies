@@ -38,7 +38,6 @@ API level tests are done using Mocha and Chai.
 npm test
 ```
 
-
 # Required environment variables
 
 Recommended you have a .env file inside the root folder with the following variables:
@@ -49,10 +48,9 @@ GOOGLE_REDIRECT_URL=
 
 DATABASE=           //name of the database
 CLIENT_URL=
-```
 
-NODE_ENV =      // 'dev' or 'test' or 'prod'
-
+NODE_ENV =          // 'dev' or 'test' or 'prod'
+``` 
 
 ### TODO:
 

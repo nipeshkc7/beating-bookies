@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "mocha test",
+    "test": "mocha test --exit",
     "dev": "node -r dotenv/config index.js dotenv_config_path=../.env"
   },
   "keywords": [],
