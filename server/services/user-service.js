@@ -58,13 +58,6 @@ async function loginOauth(email) {
     }
 }
 
-//async function Oauth_login(email){
-//   let user = await getUserByEmail(email);
-//     if(!user){
-//         addUser(email,email, ,)
-//     }
-// }
-
 async function update_user(old_name, old_email, old_password, new_name, new_email, new_password) {
     let find_user = await getUserByEmail(old_email);
     if (!find_user) {

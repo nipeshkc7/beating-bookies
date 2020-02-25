@@ -1,7 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const user_controller = require('../controllers/user-controller');
-const authorize = require('../util/authorize');
+const {authorize} = require('../util/authorize');
 
 
 // Routes for /user/...

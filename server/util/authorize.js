@@ -1,8 +1,6 @@
 const jwt = require('jsonwebtoken');
 const config = require('../config');
 
-module.exports = authorize
-
 function authorize(condition) {
     return [
         (req, res, next) => {
@@ -17,4 +15,20 @@ function authorize(condition) {
             return res.status('401').end('Unauthorized Access');
         }
     ]
+}
+
+function getUserId(authorization){
+    if(process.env.NODE_ENV === 'test')
+        return '1';
+    jwt.verify(authorization, config.secret, function (err, decoded) {
+        if (decoded) {
+            return decoded.id;
+        }
+    });
+    return null;
+}
+
+module.exports = {
+    authorize,
+    getUserId
 }
