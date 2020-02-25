@@ -27,7 +27,8 @@ createDb();
 
 async function insertBet(bet, user_id) {
     try {
-        await db.run('INSERT INTO bets (user_id, title, type, stakes, winnings, profits, date_placed) VALUES (?,?,?,?,?,?,?)', [user_id, bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.date_placed]);
+        let result = await db.run('INSERT INTO bets (user_id, title, type, stakes, winnings, profits, date_placed) VALUES (?,?,?,?,?,?,?)', [user_id, bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.date_placed]);
+        return result.lastID;
     }
     catch (er) {
         throw new Error(er);
@@ -55,7 +56,8 @@ async function getAllBets(user_id) {
 
 async function updateBet(bet) {
     try {
-        await db.run('update bets set (title, type, stakes, winnings, profits) = (?,?,?,?,?) where bet_id = ?', bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.bet_id);
+        let result = await db.run('update bets set (title, type, stakes, winnings, profits) = (?,?,?,?,?) where bet_id = ?', bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.bet_id);
+        return result.lastID;
     } catch (er) {
         throw new Error(er);
     }
