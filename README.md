@@ -1,6 +1,13 @@
-## Project Overview
 
-This is a matched-betting-tracker application for tracking user's matched betting activities, has support for Oauth 2.0 authentication.
+![Beating Bookies Logo](client/public/logo.png)
+
+## Overview
+
+A free-to-use application made for matched-bettors. Used for tracking betting activities, profits along with matched-betting tools like dutching calculator, back-lay calculators. This application has support for Google Sign In and regular email sign in.
+
+This is a completely API based backend using Node.js and front-end done using Vue.js.
+
+To setup and run the application on your local machine, Follow these instructions:
 
 # Server setup
 
