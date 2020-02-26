@@ -11,7 +11,6 @@ Vue.prototype.$http = Axios;
 Axios.interceptors.request.use(authHeader);
 Vue.config.productionTip = false;
 
-
 Vue.use(Buefy);
 new Vue({
   router,

@@ -1,16 +1,21 @@
 {
   "name": "client",
   "version": "0.1.0",
+  "main": "src/styles/bulma.scss",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "css-build": "node-sass --omit-source-map-url src/styles/bulma.scss src/styles/bulma.css",
+    "css-watch": "npm run css-build -- --watch",
+    "start": "npm run css-watch"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "buefy": "^0.8.11",
     "core-js": "^3.4.4",
+    "node-sass": "^4.13.1",
     "vue": "^2.6.10",
     "vue-router": "^3.1.3"
   },
@@ -21,11 +26,12 @@
     "@vue/cli-service": "^4.1.0",
     "@vue/eslint-config-airbnb": "^4.0.0",
     "babel-eslint": "^10.0.3",
+    "bulma": "^0.8.0",
     "eslint": "^5.16.0",
     "eslint-plugin-vue": "^5.0.0",
     "lint-staged": "^9.5.0",
     "sass": "^1.23.7",
-    "sass-loader": "^8.0.0",
+    "sass-loader": "^8.0.2",
     "vue-template-compiler": "^2.6.10"
   },
   "eslintConfig": {

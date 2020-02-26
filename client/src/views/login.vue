@@ -1,54 +1,73 @@
 <template>
-  <div class="columns is-desktop">
-    <div class="card column is-4 is-offset-4" id="loginCard">
-      <div class="card-header">
-        <p class="card-header-title">Sign In with Email</p>
-      </div>
-      <div class="card-content">
-        <form id="input-box">
-          <section>
-            <b-field label="Email" label-position="Inside">
-              <b-input
-              icon="email" placeholder="Enter your email" id="email" type="email" v-model="email"
-              required>
-              </b-input>
-            </b-field>
-            <b-field label="Password" label-position="Inside">
-              <b-input
-              icon="key"
-              placeholder="Enter your Password" id="password" type="password"
-              v-model="password" required>
-              </b-input>
-            </b-field>
-            <br />
-            <div
-              class="buttons"
-            >
-                <b-button native-type="submit" type="is-primary" @click="handleSubmit">
-                  Login
-                </b-button>
-                <router-link to="register">
-                  <b-button outlined type="is-text">Register</b-button>
-                </router-link>
-            </div>
-            <p>
-              <b>OR,</b>
-            </p>
-            <br />
-            <b-button
-              size="is-medium"
-              icon-left="google"
-              type="is-secondary"
-              @click="redirectToGoogle"
-            >&nbsp;&nbsp;&nbsp;Sign in with Google</b-button>
-          </section>
-        </form>
+  <div>
+    <Navbar></Navbar>
+    <div class="columns">
+      <div class="card column is-4 is-offset-4" id="loginCard">
+        <div class="card-header">
+          <p class="card-header-title">Sign In with Email</p>
+        </div>
+        <div class="card-content">
+          <form id="input-box">
+            <section>
+              <b-field label="Email" label-position="Inside">
+                <b-input
+                  icon="email"
+                  placeholder="Enter your email"
+                  id="email"
+                  type="email"
+                  v-model="email"
+                  required
+                ></b-input>
+              </b-field>
+              <b-field label="Password" label-position="Inside">
+                <b-input
+                  icon="key"
+                  placeholder="Enter your Password"
+                  id="password"
+                  type="password"
+                  v-model="password"
+                  required
+                ></b-input>
+              </b-field>
+              <br />
+              <div>
+                  <b-button
+                  native-type="submit" class="is-pulled-left" type="is-primary"
+                  @click="handleSubmit">
+                    Login
+                  </b-button>
+                  <b-button outlined type="is-secondary" class="is-pulled-right"
+                  tag="router-link" :to="{ path: '/register' }">
+                      Register
+                  </b-button>
+              </div>
+              <br/>
+              <br/>
+              <div class="columns OR">
+                <div class="column">
+                  <b>OR,</b>
+                </div>
+              </div>
+              <div class="columns">
+                <b-button
+                  class="column is-12 is-full-mobile"
+                  size="is-medium"
+                  icon-left="google"
+                  type="is-secondary"
+                  @click="redirectToGoogle"
+                >&nbsp;&nbsp;&nbsp;Sign in with Google</b-button>
+              </div>
+            </section>
+          </form>
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue';
+
 export default {
   data() {
     return {
@@ -56,6 +75,9 @@ export default {
       password: '',
       server_msg: '',
     };
+  },
+  components: {
+    Navbar,
   },
   methods: {
     handleSubmit(e) {
@@ -110,6 +132,10 @@ export default {
 
 <style>
 #loginCard {
-  margin-top: 20px;
+  margin-top: 50px;
+}
+
+.OR{
+  text-align: center;
 }
 </style>
