@@ -12,7 +12,7 @@ async function addBet(req, res, next) {
             teamA_odds: req.body.teamA_odds,
             teamB_odds: req.body.teamB_odds,
             result: req.body.result,
-            profit: req.body.profit,
+            profits: req.body.profits,
             date_placed: req.body.date_placed,
         }
         await bet_service.insertBet(bets, user_id);
@@ -43,7 +43,7 @@ async function updateBet(req, res, next) {
             teamA_odds: req.body.teamA_odds,
             teamB_odds: req.body.teamB_odds,
             result: req.body.result,
-            profit: req.body.profit,
+            profits: req.body.profits,
             date_placed: req.body.date_placed,        }
         await bet_service.updateBet(bet);
         return res.status('200').json('Successfully updated');

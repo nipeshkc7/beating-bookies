@@ -1,35 +1,39 @@
 require('dotenv').config({ path: '../test.env' });
 
-let bets_service = require('../services/bets-service');
+let bets_service = require('../services/d2w-service');
+let general_bets_service = require('../services/bets-service');
 let chai = require('chai');
 let chaiHttp = require('chai-http');
 let server = require('../index');
 let expect = chai.expect;
 chai.use(chaiHttp);
 
-//Testing API :: bets routes
+//Testing API :: d2w routes
 
-describe("Bets controller test :", () => {
+describe("Dutch 2 way controller test :", () => {
     before((done) => {
+        general_bets_service.deleteAll();
         bets_service.deleteAll();
         done();
     });
 
 
-    describe('POST:: /bets)', () => {
+    describe('POST:: /d2w)', () => {
 
         it("POST:: /bets/addBet/ Should successfully add new bet", done => {
             let bet = {
-                title: "Collingwood vs Eastwood",
-                type: "d2w",
-                stakes: "100",
-                winnings: "400",
-                profits: "300",
-                date_placed: "2019/02/02",
+                title: "Collingwood vs eagles",
+                teamA_amount: "200",
+                teamA_odds: "1.1",
+                teamB_amount: "300",
+                teamB_odds: "2.2",
+                profits: '200',
+                result: "undecided",
+                date_placed: "2019/02/03"
             };
 
             chai.request(server)
-                .post('/bets/addBet')
+                .post('/d2w/addBet')
                 .send(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
@@ -41,11 +45,19 @@ describe("Bets controller test :", () => {
         //Get all bets of user
         it("GET:: /bets/getAll/ should get all bets of a user", done => {
             chai.request(server)
-                .get('/bets/getAll')
+                .get('/d2w/getAll')
                 .send({ user_id: '1' })
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.include({ title: "Collingwood vs Eastwood" });
+                    expect(res.body).to.include({ title: "Collingwood vs eagles" });
+                    expect(res.body).to.include({
+                        teamA_amount: "200",
+                        teamA_odds: "1.1",
+                        teamB_amount: "300",
+                        teamB_odds: "2.2",
+                        result: "undecided",
+                        date_placed: "2019/02/03"
+                    });
                     done();
                 });
         });
@@ -55,29 +67,31 @@ describe("Bets controller test :", () => {
             let bet = {
                 bet_id: "1",
                 user_id: "1",
-                title: "Collingwood vs Not EastWood",
-                type: "d3w",
-                stakes: "300",
-                winnings: "400",
-                profits: "300",
-                date_placed: "2019/02/02",
+                title: "jazz vs blues",
+                teamA_amount: "200",
+                teamA_odds: "1.1",
+                teamB_amount: "300",
+                teamB_odds: "2.2",
+                profits: "200",
+                result: "teamA",
+                date_placed: "2019/02/03",
             };
             chai.request(server)
-                .post('/bets/updateBet')
+                .post('/d2w/updateBet')
                 .send(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     done();
                 });
-        });        
-        
+        });
+
         //Deleting a bet
         it("POST:: /bets/deleteBet/ should delete a bet with the bet_id", done => {
             let bet = {
-                bet_id: "1"
+                bet_id: "0"
             };
             chai.request(server)
-                .post('/bets/deleteBet')
+                .post('/d2w/deleteBet')
                 .send(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);

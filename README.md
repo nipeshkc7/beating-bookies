@@ -54,5 +54,5 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 ### TODO:
 
-1. Create database models and services
-2. Add CRUD features for the new database tables
+1. Create front-end UI mockups.
+2. Front-end to CRUD bets

@@ -67,7 +67,6 @@ async function getAllBets(user_id) {
 async function updateBet(bet) {
     try {
         let general_bet = blay_to_general(bet);
-        console.log(general_bet);
         await general_bet_service.updateBet(general_bet);
         await db.run('update blay set ( back_amount, back_odds, lay_odds, lay_amount, profits, SNR, result, betfair_commission) = (?,?,?,?,?,?,?,?) where bet_id = ?'
             , bet.back_amount, bet.back_odds, bet.lay_odds, bet.lay_amount, bet.profits, bet.snr, bet.result, bet.betfair_commission, bet.bet_id);
