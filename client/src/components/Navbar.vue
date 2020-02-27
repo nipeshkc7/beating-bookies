@@ -2,11 +2,7 @@
   <b-navbar>
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
-        <img
-          class="logo"
-          src="@/assets/logo.png"
-          alt="Beating bookies - Matched betting tracker"
-        />
+        <img class="logo" src="@/assets/logo.png" alt="Beating bookies - Matched betting tracker" />
       </b-navbar-item>
     </template>
     <template slot="start">
@@ -16,12 +12,25 @@
     </template>
 
     <template slot="end">
-      <b-navbar-item tag="router-link" :to="{ path: '/register' }">
-        <div class="buttons">
+      <b-navbar-item v-if="is_user_logged_in === false"
+       tag="router-link" :to="{ path: '/register' }">
+        <div>
           <a class="button is-primary">
             <strong>Sign up</strong>
           </a>
+        </div>
+      </b-navbar-item>
+      <b-navbar-item v-if="is_user_logged_in === false"
+      tag="router-link" :to="{ path: '/login' }">
+        <div>
           <a class="button is-light">Log in</a>
+        </div>
+      </b-navbar-item>
+      <b-navbar-item v-if="is_user_logged_in === true">
+        <div>
+          <a v-on:click="logout" class="button is-primary">
+            <strong>Logout</strong>
+          </a>
         </div>
       </b-navbar-item>
     </template>
@@ -31,6 +40,28 @@
 <script>
 export default {
   name: 'Navbar',
+  data() {
+    return {
+      is_user_logged_in: false,
+      username: '',
+    };
+  },
+  created() {
+    this.getUser();
+  },
+  methods: {
+    getUser() {
+      if (localStorage.getItem('user')) {
+        this.is_user_logged_in = true;
+        const user = JSON.parse(localStorage.getItem('user'));
+        this.username = user.name;
+      }
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push('/');
+    },
+  },
   props: {
     msg: String,
   },
@@ -38,10 +69,10 @@ export default {
 </script>
 
 <style scoped>
-.logo{
-    margin:0;
-    padding: 0;
-    width:110px;
-    max-height:none;
+.logo {
+  margin: 0;
+  padding: 0;
+  width: 110px;
+  max-height: none;
 }
 </style>

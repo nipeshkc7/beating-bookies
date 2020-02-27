@@ -1,5 +1,6 @@
 <template>
   <div id="secure">
+    <Navbar></Navbar>
     <h1>Secure Area</h1>
     <p>This is a secure area</p>
     <button type="button" @click="fire">Fire</button>
@@ -7,12 +8,17 @@
 </template>
 
 <script>
+import Navbar from '../components/Navbar.vue';
+
 export default {
   name: 'Secure',
   data() {
     return {
       server_msg: '',
     };
+  },
+  components: {
+    Navbar,
   },
   methods: {
     fire() {
@@ -30,7 +36,6 @@ export default {
           }
         })
         .catch((error) => {
-          console.error(error.response.status);
           if (error.response.status === 401) this.server_msg = 'Wrong username or password';
           else this.server_msg = 'Server Error . Please try again later';
         });
