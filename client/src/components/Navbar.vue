@@ -5,7 +5,7 @@
         <img class="logo" src="@/assets/logo.png" alt="Beating bookies - Matched betting tracker" />
       </b-navbar-item>
     </template>
-    <template slot="start">
+    <template v-if="is_user_logged_in === false" slot="start">
       <b-navbar-item href="#">Home</b-navbar-item>
       <b-navbar-item href="#">About Us</b-navbar-item>
       <b-navbar-item href="#">Contact</b-navbar-item>
@@ -25,6 +25,21 @@
         <div>
           <a class="button is-light">Log in</a>
         </div>
+      </b-navbar-item>
+      <b-navbar-item v-if="is_user_logged_in === true">
+        <b>{{ username }}</b>
+      </b-navbar-item>
+      <b-navbar-item v-if="is_user_logged_in === true">
+        <b-icon
+          icon="account"
+          size="is-medium">
+        </b-icon>
+      </b-navbar-item>
+      <b-navbar-item v-if="is_user_logged_in === true">
+        <b-icon
+          icon="bell"
+          size="is-medium">
+        </b-icon>
       </b-navbar-item>
       <b-navbar-item v-if="is_user_logged_in === true">
         <div>

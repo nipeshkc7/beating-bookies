@@ -61,5 +61,6 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 ### TODO:
 
-1. Create front-end UI mockups.
-2. Front-end to CRUD bets
+1. Create simple card components for dashboard
+2. Create components for viewing all bets 
+3. Add a search bar
