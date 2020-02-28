@@ -1,20 +1,45 @@
 <template>
   <div id="secure">
     <Navbar></Navbar>
-    <h1>Secure Area</h1>
-    <p>This is a secure area</p>
-    <button type="button" @click="fire">Fire</button>
+    <div class="container main-content">
+      <!-- <h1 class="title">Dashboard</h1> -->
+      <div class="tile is-ancestor">
+        <div class="tile is-parent">
+          <article class="tile is-child box notification is-info">
+            <p class="title">Average conversion</p>
+            <p class="subtitle">{{ average_conversion }}</p>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box  notification is-success">
+            <p class="title">Total profits</p>
+            <p class="subtitle">{{ total_profits }}</p>
+          </article>
+        </div>
+        <div class="tile is-parent">
+          <article class="tile is-child box notification is-primary">
+            <p class="title">Biggest win this week</p>
+            <p class="subtitle">{{ biggest_win }}</p>
+          </article>
+        </div>
+      </div>
+    </div>
+    <!-- <button type="button" @click="fire">Fire</button> -->
   </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue';
+// import SimpleTile from '../components/SimpleTile.vue';
 
 export default {
   name: 'Secure',
   data() {
     return {
       server_msg: '',
+      average_conversion: '20%',
+      total_profits: 'AUD 1000',
+      biggest_win: 'AUD 258.20',
     };
   },
   components: {
@@ -45,10 +70,11 @@ export default {
 </script>
 
 <style scoped>
-#secure {
-  background-color: #ffffff;
-  border: 1px solid #cccccc;
-  padding: 20px;
-  margin-top: 10px;
+.main-content{
+  padding:25px 0px;
+}
+
+.subtitle{
+  font-size: '90px',
 }
 </style>
