@@ -1,7 +1,12 @@
 <template>
   <div id="secure">
     <Navbar></Navbar>
-    <div class="container main-content">
+    <!-- <SideBar></SideBar> -->
+    <div class="columns">
+      <div class="column is-2">
+        <SideBar></SideBar>
+      </div>
+    <div class="container main-content column">
       <!-- <h1 class="title">Dashboard</h1> -->
       <div class="tile is-ancestor">
         <div class="tile is-parent">
@@ -29,38 +34,15 @@
             <article class="tile is-child box is-info">
               <p class="title">Your bets..</p>
               <br/>
-              <p class="subtitle">Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Etiam semper diam at erat pulvinar, at pulvinar felis blandit. Vestibulum
-                volutpat tellus diam, consequat gravida libero rhoncus ut. Morbi maximus,
-                leo sit amet vehicula eleifend, nunc dui porta orci, quis semper odio felis
-                ut quam.
-                Suspendisse varius ligula in molestie lacinia. Maecenas varius eget ligula
-                a sagittis.
-                 Pellentesque
-                interdum, nisl nec interdum maximus, augue diam porttitor lorem, et
-                sollicitudin felis
-                 neque sit
-                amet erat. Maecenas imperdiet felis nisi, fringilla luctus felis hendrerit
-                sit amet.
-                 Aenean vitae
-                gravida diam, finibus dignissim turpis. Sed eget varius ligula, at volutpat
-                tortor.
-                Integer sollicitudin, tortor a mattis commodo, velit urna rhoncus erat, vitae
-                congue
-                lectus dolor
-                consequat libero. Donec leo ligula, maximus et pellentesque sed, gravida a
-                metus.
-                Cras ullamcorper
-                a nunc ac porta. Aliquam ut aliquet lacus, quis faucibus libero. Quisque non
-                semper leo.
-              </p>
+              <BetsTable perPage="5" isPaginated="true">
+              </BetsTable>
             </article>
           </div>
         </div>
         <div class="tile is-4 is-vertical">
           <div class="tile is-parent">
             <article class="tile is-child box notification is-info">
-              <p class="title">To Do : Settle these bets !</p>
+              <p class="title">ToDo:Settle these bets !</p>
               <p class="subtitle">{{ average_conversion }}</p>
             </article>
           </div>
@@ -75,11 +57,13 @@
     </div>
     <!-- <button type="button" @click="fire">Fire</button> -->
   </div>
+      </div>
 </template>
 
 <script>
 import Navbar from '../components/Navbar.vue';
-// import SimpleTile from '../components/SimpleTile.vue';
+import BetsTable from '../components/BetsTable.vue';
+import SideBar from '../components/SideBar.vue';
 
 export default {
   name: 'Secure',
@@ -93,6 +77,8 @@ export default {
   },
   components: {
     Navbar,
+    BetsTable,
+    SideBar,
   },
   methods: {
     fire() {
@@ -120,7 +106,7 @@ export default {
 
 <style scoped>
 .main-content {
-  padding: 25px 0px;
+  padding: 25px 20px;
 }
 
 .subtitle {

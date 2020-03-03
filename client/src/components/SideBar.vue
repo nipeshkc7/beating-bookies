@@ -1,0 +1,53 @@
+<template>
+    <div class="sideB">
+        <b-menu>
+            <b-menu-list>
+                <b-menu-item icon="view-dashboard" label="Dashboard"></b-menu-item>
+                <b-menu-item icon="format-list-checkbox" label="View your bets"></b-menu-item>
+                <b-menu-item icon="wrench" active="true">
+                <template slot="label" slot-scope="props">
+                    Toolset
+                    <b-icon class="is-pulled-right"
+                    :icon="props.expanded ? 'menu-down' : 'menu-up'">
+                    </b-icon>
+                </template>
+                <b-menu-item icon="calculator" label="D2W Calculator"></b-menu-item>
+                <b-menu-item icon="calculator" label="D3W Calculator"></b-menu-item>
+                <b-menu-item icon="calculator" label="Back/Lay Calculator"></b-menu-item>
+                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>
+                </b-menu-item>
+                <b-menu-item icon="account" label="My Account">
+                <b-menu-item label="Account data"></b-menu-item>
+                <b-menu-item label="Addresses"></b-menu-item>
+                </b-menu-item>
+            </b-menu-list>
+            <b-menu-list>
+                <b-menu-item label="Expo" icon="link" tag="router-link" target="_blank" to="/expo">
+                </b-menu-item>
+            </b-menu-list>
+            <b-menu-list label="Actions">
+                <b-menu-item label="Logout"></b-menu-item>
+            </b-menu-list>
+        </b-menu>
+    </div>
+</template>
+
+<script>
+export default {
+  name: 'SideBar',
+  methods: {
+    openNav() {
+      document.getElementById('mySidenav').style.width = '250px';
+    },
+    closeNav() {
+      document.getElementById('mySidenav').style.width = '90px';
+    },
+  },
+};
+</script>
+
+<style scoped>
+    .sideB {
+        padding: 10px;
+    }
+</style>

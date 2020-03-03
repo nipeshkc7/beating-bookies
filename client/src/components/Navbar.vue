@@ -1,5 +1,5 @@
 <template>
-  <b-navbar>
+  <b-navbar shadow="true">
     <template slot="brand">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">
         <img class="logo" src="@/assets/logo.png" alt="Beating bookies - Matched betting tracker" />
