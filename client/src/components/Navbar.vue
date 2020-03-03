@@ -10,7 +10,19 @@
       <b-navbar-item href="#">About Us</b-navbar-item>
       <b-navbar-item href="#">Contact</b-navbar-item>
     </template>
-
+    <template v-else slot="start">
+          <b-navbar-item href="#">Home</b-navbar-item>
+          <b-navbar-item href="#">About Us</b-navbar-item>
+          <b-navbar-item>
+      <b-field position="is-centered">
+            <b-input placeholder="Search sporting events" type="search" icon="magnify">
+            </b-input>
+            <p class="control">
+                <button class="button is-primary">Search</button>
+            </p>
+      </b-field>
+      </b-navbar-item>
+    </template>
     <template slot="end">
       <b-navbar-item v-if="is_user_logged_in === false"
        tag="router-link" :to="{ path: '/register' }">

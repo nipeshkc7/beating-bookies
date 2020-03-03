@@ -3,6 +3,7 @@
         <b-menu>
             <b-menu-list>
                 <b-menu-item icon="view-dashboard" label="Dashboard"></b-menu-item>
+                <b-menu-item icon="plus" label="Add Bet(s)"></b-menu-item>
                 <b-menu-item icon="format-list-checkbox" label="View your bets"></b-menu-item>
                 <b-menu-item icon="wrench" active="true">
                 <template slot="label" slot-scope="props">
@@ -14,16 +15,12 @@
                 <b-menu-item icon="calculator" label="D2W Calculator"></b-menu-item>
                 <b-menu-item icon="calculator" label="D3W Calculator"></b-menu-item>
                 <b-menu-item icon="calculator" label="Back/Lay Calculator"></b-menu-item>
-                <b-menu-item icon="cash-multiple" label="Payments" disabled></b-menu-item>
                 </b-menu-item>
                 <b-menu-item icon="account" label="My Account">
-                <b-menu-item label="Account data"></b-menu-item>
-                <b-menu-item label="Addresses"></b-menu-item>
+                <b-menu-item label="Edit account details"></b-menu-item>
+                <b-menu-item label="Delete account"></b-menu-item>
                 </b-menu-item>
-            </b-menu-list>
-            <b-menu-list>
-                <b-menu-item label="Expo" icon="link" tag="router-link" target="_blank" to="/expo">
-                </b-menu-item>
+                <b-menu-item icon="chart-bar" label="View Stats"></b-menu-item>
             </b-menu-list>
             <b-menu-list label="Actions">
                 <b-menu-item label="Logout"></b-menu-item>
