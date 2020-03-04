@@ -1,5 +1,6 @@
 <template>
   <div id="secure">
+    <!-- Navbar Component -->
     <Navbar></Navbar>
     <div class="columns">
       <div class="column is-2">
@@ -32,7 +33,7 @@
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
                 <p class="title">Your bets ...</p>
-                <BetsTable perPage="5" isPaginated="true"></BetsTable>
+                <BetsTable perPage="5" :isPaginated="true"></BetsTable>
               </article>
             </div>
           </div>
@@ -73,27 +74,6 @@ export default {
     BetsTable,
     SideBar,
     Footer,
-  },
-  methods: {
-    fire() {
-      this.$http
-        .post('http://localhost:4000/user/login', {
-          email: 'nipeshkc7@gmail.com',
-          password: 'nipesh62297',
-        })
-        .then((response) => {
-          localStorage.setItem('user', JSON.stringify(response.data.user));
-          localStorage.setItem('jwt', response.data.token);
-
-          if (localStorage.getItem('jwt') != null) {
-            this.$router.push('/secure');
-          }
-        })
-        .catch((error) => {
-          if (error.response.status === 401) this.server_msg = 'Wrong username or password';
-          else this.server_msg = 'Server Error . Please try again later';
-        });
-    },
   },
 };
 </script>

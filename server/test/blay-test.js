@@ -48,7 +48,7 @@ describe("Back/lay bets or blay controller test :", () => {
         it("GET:: /bets/getAll/ should get all bets of a user", done => {
             chai.request(server)
                 .get('/blay/getAll')
-                .send({ user_id: '1' })
+                .query({ user_id: '1' })
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     expect(res.body).to.include({ title: "Collingwood vs Eastwood" });
@@ -57,7 +57,7 @@ describe("Back/lay bets or blay controller test :", () => {
         });
 
         //Update a bet
-        it("GET:: /bets/updateBet/ should update a bet with the bet_id", done => {
+        it("POST:: /bets/updateBet/ should update a bet with the bet_id", done => {
             let bet = {
                 bet_id: "1",
                 user_id: "1",

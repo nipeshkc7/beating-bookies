@@ -47,10 +47,35 @@ async function getBet(bet) {
 
 async function getAllBets(user_id) {
     try {
-        let bets = await db.get(`SELECT * FROM bets WHERE user_id = ?`, user_id);
-        return bets;
+        let rows = await db.all(`SELECT * FROM bets WHERE user_id = ?`, [user_id]);
+        let bets = await rows.map(async (row) => {
+            let detailedRow = await getBetDetails(row, user_id);
+            return detailedRow;
+        })
+        return await Promise.all(bets);
     } catch (er) {
+        console.log(er);
         throw Error(er);
+    }
+}
+
+async function getBetDetails(bet, user_id) {
+    try {
+        if (bet.type == 'd2w') {
+            let all_bets = await db.get(`SELECT * FROM d2w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            return all_bets;
+        }
+        if (bet.type == 'd3w') {
+            let all_bets = await db.get(`SELECT * FROM d3w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            return all_bets;
+        }
+        if (bet.type == 'blay') {
+            let all_bets = await db.get(`SELECT * FROM blay AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            return all_bets;
+        }
+        return bet;
+    } catch (er) {
+        console.log(er);
     }
 }
 

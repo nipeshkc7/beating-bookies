@@ -1,6 +1,8 @@
 <template>
   <section>
-    <b-table :data="data" :columns="columns" :per-page="perPage" :paginated="isPaginated"></b-table>
+    <b-table :data="data" :columns="columns" :per-page="perPage" :paginated="isPaginated">
+    </b-table>
+    {{ betData }}
   </section>
 </template>
 
@@ -8,11 +10,33 @@
 export default {
   name: 'BetsTable',
   props: {
-    perPage: Number,
-    isPaginated: String,
+    perPage: String,
+    isPaginated: Boolean,
+  },
+  created() {
+    this.getBetData();
+  },
+  methods: {
+    getBetData() {
+      this.$http
+        .get('http://localhost:4000/bets/getAll', {
+          params: {
+            user_id: JSON.parse(localStorage.getItem('user')).id,
+          },
+        })
+        .then((response) => {
+          this.betData = Array.from(response.data);
+          console.log(this.betData);
+        })
+        .catch((error) => {
+          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
+          else this.server_msg = 'Server Error . Please try again later';
+        });
+    },
   },
   data() {
     return {
+      betData: [],
       data: [
         {
           id: 1,

@@ -5,7 +5,7 @@
                 <b-menu-item icon="view-dashboard" label="Dashboard"></b-menu-item>
                 <b-menu-item icon="plus" label="Add Bet(s)"></b-menu-item>
                 <b-menu-item icon="format-list-checkbox" label="View your bets"></b-menu-item>
-                <b-menu-item icon="wrench" active="true">
+                <b-menu-item icon="wrench" :active="true">
                 <template slot="label" slot-scope="props">
                     Toolset
                     <b-icon class="is-pulled-right"

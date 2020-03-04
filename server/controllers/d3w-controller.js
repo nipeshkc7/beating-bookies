@@ -59,7 +59,7 @@ async function updateBet(req, res, next) {
 
 async function getBet(req, res, next) {
     try {
-        let bet = await bet_service.getBet(req.bet_id);
+        let bet = await bet_service.getBet(req.query.bet_id);
         return res.status('200').json(bet);
     } catch (er) {
         return res.status('500').json('Server error: ' + er);
@@ -68,7 +68,7 @@ async function getBet(req, res, next) {
 
 async function getAll(req, res, next) {
     try {
-        let bets = await bet_service.getAllBets(req.body.user_id);
+        let bets = await bet_service.getAllBets(req.query.user_id);
         return res.status('200').json(bets);
     } catch (er) {
         return res.status('500').json('Server error: ' + er);

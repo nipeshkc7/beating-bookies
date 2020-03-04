@@ -87,7 +87,6 @@ export default {
             is_admin: this.is_admin,
           })
           .then((response) => {
-            console.log(response.status);
             if (response.status === 200) {
               this.server_msg = response.data;
               this.email = '';

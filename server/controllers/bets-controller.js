@@ -59,7 +59,8 @@ async function getBet(req, res, next) {
 
 async function getAll(req, res, next) {
     try {
-        let bets = await bet_service.getAllBets(req.body.user_id);
+        if(!req.query.user_id) throw new Error('Bad request');
+        let bets = await bet_service.getAllBets(req.query.user_id);
         return res.status('200').json(bets);
     } catch (er) {
         return res.status('500').json('Server error: ' + er);

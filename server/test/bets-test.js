@@ -42,10 +42,12 @@ describe("Bets controller test :", () => {
         it("GET:: /bets/getAll/ should get all bets of a user", done => {
             chai.request(server)
                 .get('/bets/getAll')
-                .send({ user_id: '1' })
+                .query({ user_id: '1' })
                 .end((err, res) => {
+                    console.log(res.body);
                     expect(res).to.have.status(200);
-                    expect(res.body).to.include({ title: "Collingwood vs Eastwood" });
+                    expect(res.body).to.be.an('array');
+                    expect(res.body[0]).to.include({ title: "Collingwood vs Eastwood" });
                     done();
                 });
         });
@@ -64,7 +66,7 @@ describe("Bets controller test :", () => {
             };
             chai.request(server)
                 .post('/bets/updateBet')
-                .send(bet)
+                .query(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
                     done();
