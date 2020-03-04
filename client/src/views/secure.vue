@@ -33,7 +33,7 @@
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
                 <p class="title">Your bets ...</p>
-                <BetsTable perPage="5" :isPaginated="true"></BetsTable>
+                <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"></BetsTable>
               </article>
             </div>
           </div>
@@ -64,9 +64,7 @@ export default {
   data() {
     return {
       server_msg: '',
-      average_conversion: '20%',
-      total_profits: 'AUD 1000',
-      biggest_win: 'AUD 258.20',
+      betData: [],
     };
   },
   components: {
@@ -74,6 +72,56 @@ export default {
     BetsTable,
     SideBar,
     Footer,
+  },
+  created() {
+    this.getBetData();
+  },
+  methods: {
+    getBetData() {
+      this.$http
+        .get('http://localhost:4000/bets/getAll', {
+          params: {
+            user_id: JSON.parse(localStorage.getItem('user')).id,
+          },
+        })
+        .then((response) => {
+          this.betData = response.data;
+        })
+        .catch((error) => {
+          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
+          else this.server_msg = 'Server Error . Please try again later';
+        });
+    },
+  },
+  computed: {
+    total_profits() {
+      const totalProfit = this.betData.reduce((accumulator, currentValue) => {
+        if (!Number.isNaN(Number(currentValue.profits))) {
+          return accumulator + currentValue.profits;
+        }
+        return accumulator;
+      }, 0);
+      return `AUD ${totalProfit}`;
+    },
+    biggest_win() {
+      const biggestWin = this.betData.reduce((p, v) => {
+        if (!Number.isNaN(Number(v.profits))) {
+          return (p > v.profits ? p : v.profits);
+        }
+        return p;
+      }, 0);
+      return `AUD ${biggestWin}`;
+    },
+    average_conversion() {
+      const totalSuccess = this.betData.reduce((p, v) => {
+        if (!Number.isNaN(Number(v.profits))) {
+          return (v.profits > 0 ? 1 + p : p);
+        }
+        return p;
+      }, 0);
+      const averageConversion = (totalSuccess / this.betData.length) * 100;
+      return `${averageConversion} %`;
+    },
   },
 };
 </script>
