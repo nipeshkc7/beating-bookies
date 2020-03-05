@@ -2,6 +2,17 @@
   <div id="secure">
     <!-- Navbar Component -->
     <Navbar></Navbar>
+    <section>
+      <b-modal :active.sync="isModalActive"
+        has-modal-card
+        trap-focus
+        aria-role="dialog"
+        :can-cancel="['escape','outside']"
+        aria-modal
+        >
+        <AddBets></AddBets>
+      </b-modal>
+    </section>
     <div class="columns">
       <div class="column is-2">
         <SideBar></SideBar>
@@ -32,7 +43,13 @@
           <div class="tile is-8 is-vertical">
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
-                <p class="title">Your bets ...</p>
+                <div class="level">
+                  <p class="title level-right">Your bets ...</p>
+                  <b-button class="level-left button is-primary" icon-left="plus"
+                  @click="isModalActive = true">
+                    Add Bet
+                  </b-button>
+                </div>
                 <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"></BetsTable>
               </article>
             </div>
@@ -58,11 +75,13 @@ import Navbar from '../components/Navbar.vue';
 import BetsTable from '../components/BetsTable.vue';
 import SideBar from '../components/SideBar.vue';
 import Footer from '../components/Footer.vue';
+import AddBets from '../components/AddBets.vue';
 
 export default {
   name: 'Secure',
   data() {
     return {
+      isModalActive: false,
       server_msg: '',
       betData: [],
     };
@@ -70,6 +89,7 @@ export default {
   components: {
     Navbar,
     BetsTable,
+    AddBets,
     SideBar,
     Footer,
   },
