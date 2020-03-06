@@ -22,11 +22,13 @@
                     <b-input placeholder="Lay Odds"></b-input>
                 </b-field>
               </b-field>
-              <b-field label="Profits">
-                <b-input placeholder="Profits"></b-input>
-              </b-field>
-              <b-field label="Result">
-                <b-input placeholder="Result"></b-input>
+              <b-field grouped>
+                <b-field label="Profits">
+                    <b-input placeholder="Profits"></b-input>
+                </b-field>
+                <b-field label="Result">
+                    <b-input placeholder="Result"></b-input>
+                </b-field>
               </b-field>
               <b-field label="SNR" :label-position="labelPosition">
                 <b-select placeholder="Select option">
@@ -34,8 +36,8 @@
                   <option value="2">No</option>
                 </b-select>
               </b-field>
-              <b-field label="SNR">
-                <b-input placeholder="Lay Odds"></b-input>
+              <b-field label="Betfair commission">
+                <b-input placeholder="Betfair commission"></b-input>
               </b-field>
               <b-field label="Date">
                 <b-input type="date" placeholder="Date"></b-input>

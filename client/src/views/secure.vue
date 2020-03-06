@@ -9,6 +9,7 @@
         aria-role="dialog"
         :can-cancel="['escape','outside']"
         aria-modal
+        :height="60"
         >
         <AddBets></AddBets>
       </b-modal>
