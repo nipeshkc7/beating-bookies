@@ -61,6 +61,6 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 ### TODO:
 
-1. Create simple card components for dashboard
-2. Create components for viewing all bets 
-3. Add a search bar
+1. Add 'add d2w/d3w/blay bets' forms
+2. Add 'add d2w/d3w/blay bets' functionality 
+3. Success/failure toasts
