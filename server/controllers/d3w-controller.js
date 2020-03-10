@@ -4,7 +4,7 @@ const bet_service = require('../services/d3w-service');
 
 async function addBet(req, res, next) {
     try {
-        let user_id = getUserId(req.headers.authorization);
+        let user_id = await getUserId(req.headers.authorization);
         let bets = {            
             title: req.body.title,
             teamA_amount: req.body.teamA_amount,
@@ -18,10 +18,10 @@ async function addBet(req, res, next) {
             date_placed: req.body.date_placed,
         }
         await bet_service.insertBet(bets, user_id);
-        res.status('200').json('added new bet');
+        return res.status('200').end('added new bet');
 
     } catch (er) {
-        res.status('500').json('Server error: ' + er);
+        return res.status('500').end('Server error: ' + er);
     }
 }
 
@@ -53,7 +53,7 @@ async function updateBet(req, res, next) {
         await bet_service.updateBet(bet);
         return res.status('200').end('Successfully updated');
     } catch (er) {
-        res.status('500').json('Server error: ' + er);
+        res.status('500').end('Server error: ' + er);
     }
 }
 

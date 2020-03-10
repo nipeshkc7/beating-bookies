@@ -53,7 +53,7 @@ GOOGLE_CLIENT_ID=
 GOOGLE_CLIENT_SECRET=
 GOOGLE_REDIRECT_URL=
 
-DATABASE=           //name of the database
+DATABASE=
 CLIENT_URL=
 
 NODE_ENV =          // 'dev' or 'test' or 'prod'
@@ -61,6 +61,6 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 ### TODO:
 
-1. Add 'add d2w/d3w/blay bets' forms
-2. Add 'add d2w/d3w/blay bets' functionality 
-3. Success/failure toasts
+1. Delete/Update blay bets
+2. Add 'add d2w/d3w bets' forms
+3. Add 'add d2w/d3w' Add/Delete/Update functionality 

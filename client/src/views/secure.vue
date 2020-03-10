@@ -62,7 +62,6 @@
                 <p class="subtitle">{{ average_conversion }}</p>
               </article>
             </div>
-            <!-- Can add another div here-->
           </div>
         </div>
       </div>

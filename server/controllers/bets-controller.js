@@ -4,7 +4,7 @@ const bet_service = require('../services/bets-service');
 
 async function addBet(req, res, next) {
     try {
-        let user_id = getUserId(req.headers.authorization);
+        let user_id = await getUserId(req.headers.authorization);
         let bets = {
             title: req.body.title,
             type: req.body.type,
