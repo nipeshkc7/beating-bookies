@@ -52,6 +52,7 @@ async function getAllBets(user_id) {
             let detailedRow = await getBetDetails(row, user_id);
             return detailedRow;
         })
+        const all_bets = await Promise.all(bets);
         return await Promise.all(bets);
     } catch (er) {
         console.log(er);
@@ -62,15 +63,15 @@ async function getAllBets(user_id) {
 async function getBetDetails(bet, user_id) {
     try {
         if (bet.type == 'd2w') {
-            let all_bets = await db.get(`SELECT * FROM d2w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            let all_bets = await db.get(`SELECT * FROM d2w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? AND bets.bet_id =?`, user_id, bet.bet_id);
             return all_bets;
         }
         if (bet.type == 'd3w') {
-            let all_bets = await db.get(`SELECT * FROM d3w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            let all_bets = await db.get(`SELECT * FROM d3w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? AND bets.bet_id =?`, user_id, bet.bet_id);
             return all_bets;
         }
         if (bet.type == 'blay') {
-            let all_bets = await db.get(`SELECT * FROM blay AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? `, user_id);
+            let all_bets = await db.get(`SELECT * FROM blay AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? AND bets.bet_id =?`, user_id, bet.bet_id);
             return all_bets;
         }
         return bet;

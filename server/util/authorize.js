@@ -17,15 +17,15 @@ function authorize(condition) {
     ]
 }
 
-function getUserId(authorization){
+async function getUserId(authorization){
     if(process.env.NODE_ENV === 'test')
         return '1';
-    jwt.verify(authorization, config.secret, function (err, decoded) {
-        if (decoded) {
-            return decoded.id;
-        }
-    });
-    return null;
+    try{
+        const decoded = await jwt.verify(authorization,config.secret);
+        return decoded.id;
+    }catch(er){
+        console.log(er);
+    }
 }
 
 module.exports = {

@@ -63,7 +63,7 @@ async function getAll(req, res, next) {
         let bets = await bet_service.getAllBets(req.query.user_id);
         return res.status('200').json(bets);
     } catch (er) {
-        return res.status('500').json('Server error: ' + er);
+        return res.status('500').end('Server error: ' + er);
     }
 }
 

@@ -14,9 +14,10 @@ async function addBet(req, res, next) {
             result: req.body.result,
             profits: req.body.profits,
             date_placed: req.body.date_placed,
+            result: req.body.result,
         }
         await bet_service.insertBet(bets, user_id);
-        res.status('200').json('added new bet');
+        res.status('200').end('added new bet');
 
     } catch (er) {
         res.status('500').json('Server error: ' + er);

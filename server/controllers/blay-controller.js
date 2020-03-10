@@ -4,7 +4,8 @@ const bet_service = require('../services/blay-service');
 
 async function addBet(req, res, next) {
     try {
-        let user_id = getUserId(req.headers.authorization);
+        console.log("ADDING BET");
+        let user_id = await getUserId(req.headers.authorization);
         let bets = {
             title: req.body.title,
             back_amount: req.body.back_amount,
@@ -15,12 +16,13 @@ async function addBet(req, res, next) {
             snr: req.body.snr,
             betfair_commission: req.body.betfair_commission,
             date_placed: req.body.date_placed,
+            result: req.body.result,
         }
         await bet_service.insertBet(bets, user_id);
-        res.status('200').json('added new bet');
-
+        return res.status('200').end({msg: 'added new bet'});
     } catch (er) {
-        res.status('500').json('Server error: ' + er);
+        console.log(er);
+        return res.status('500').end('Server error: ' + er);
     }
 }
 
@@ -67,9 +69,9 @@ async function getBet(req, res, next) {
 async function getAll(req, res, next) {
     try {
         let bets = await bet_service.getAllBets(req.query.user_id);
-        return res.status('200').json(bets);
+        return res.status('200').end(bets);
     } catch (er) {
-        return res.status('500').json('Server error: ' + er);
+        return res.status('500').end('Server error: ' + er);
     }
 }
 

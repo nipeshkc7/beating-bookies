@@ -51,7 +51,7 @@ async function updateBet(req, res, next) {
             date_placed:req.body.date_placed,
         }
         await bet_service.updateBet(bet);
-        return res.status('200').json('Successfully updated');
+        return res.status('200').end('Successfully updated');
     } catch (er) {
         res.status('500').json('Server error: ' + er);
     }
