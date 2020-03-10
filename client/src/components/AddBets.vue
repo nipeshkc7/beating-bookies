@@ -5,30 +5,9 @@
         <form action>
           <div class="modal-card" style="width: auto;height:auto;">
             <section class="modal-card-body">
-              <b-field label="Title">
+              <b-field grouped>
+              <b-field label="Title" expanded>
                 <b-input placeholder="Bet title"></b-input>
-              </b-field>
-              <b-field grouped>
-                <b-field label="Back Amount">
-                    <b-input placeholder="Bet title"></b-input>
-                </b-field>
-                <b-field label="Back Odds">
-                    <b-input placeholder="Back Odds"></b-input>
-                </b-field>
-                <b-field label="Lay Amount">
-                    <b-input placeholder="Lay Amount"></b-input>
-                </b-field>
-                <b-field label="Lay Odds">
-                    <b-input placeholder="Lay Odds"></b-input>
-                </b-field>
-              </b-field>
-              <b-field grouped>
-                <b-field label="Profits">
-                    <b-input placeholder="Profits"></b-input>
-                </b-field>
-                <b-field label="Result">
-                    <b-input placeholder="Result"></b-input>
-                </b-field>
               </b-field>
               <b-field label="SNR" :label-position="labelPosition">
                 <b-select placeholder="Select option">
@@ -36,22 +15,43 @@
                   <option value="2">No</option>
                 </b-select>
               </b-field>
-              <b-field label="Betfair commission">
-                <b-input placeholder="Betfair commission"></b-input>
+              </b-field>
+              <b-field grouped>
+                <b-field label="Back Amount" expanded>
+                    <b-input type="number" step="0.01" placeholder="Back Amount"></b-input>
+                </b-field>
+                <b-field label="Back Odds">
+                    <b-input type="number" step="0.01" placeholder="Back Odds"></b-input>
+                </b-field>
+              </b-field>
+              <b-field grouped>
+                <b-field label="Lay Amount" expanded>
+                    <b-input type="number" step="0.01" placeholder="Lay Amount"></b-input>
+                </b-field>
+                <b-field label="Lay Odds">
+                    <b-input type="number" step="0.01" placeholder="Lay Odds"></b-input>
+                </b-field>
+              </b-field>
+              <b-field grouped>
+                <b-field label="Profits" expanded>
+                    <b-input placeholder="Profits"></b-input>
+                </b-field>
+              <b-field label="Results" :label-position="labelPosition">
+                <b-select placeholder="Select option">
+                  <option value="undecided">undecided</option>
+                  <option value="win">Back wins</option>
+                  <option value="lose">Back Lose</option>
+                </b-select>
+              </b-field>
+              </b-field>
+              <b-field grouped>
+                <b-field label="BF %" expanded>
+                <b-input type="number" placeholder="Betfair commission" value='5'></b-input>
               </b-field>
               <b-field label="Date">
                 <b-input type="date" placeholder="Date"></b-input>
               </b-field>
-              <!-- title: "Collingwood vs Eastwood",
-                back_amount: "100",
-                back_odds: "1.1",
-                lay_amount: "400",
-                lay_odds: "2.1",
-                profits: "300",
-                result: "win",
-                snr: "yes",
-                betfair_commission: "20",
-              date_placed: "2019/02/02",-->
+            </b-field>
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="$parent.close()">Close</button>
@@ -77,6 +77,17 @@ export default {
   },
 };
 </script>
+
+<!-- title: "Collingwood vs Eastwood",
+  back_amount: "100",
+  back_odds: "1.1",
+  lay_amount: "400",
+  lay_odds: "2.1",
+  profits: "300",
+  result: "win",
+  snr: "yes",
+  betfair_commission: "20",
+date_placed: "2019/02/02",-->
 
 <style scoped>
 section {
