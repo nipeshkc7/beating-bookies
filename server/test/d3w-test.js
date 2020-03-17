@@ -11,10 +11,24 @@ chai.use(chaiHttp);
 //Testing API :: d3w routes
 
 describe("Dutch 3 way controller test :", () => {
-    before((done) => {
-        general_bets_service.deleteAll();
-        bets_service.deleteAll();
-        done();
+    before(async() => {
+        await bets_service.deleteAll();
+        console.log("Cleared bets ....");
+        console.log("Ready for testing");
+        let bet = {
+            title: "Collingwood vs eagles",
+            teamA_amount: "200",
+            teamA_odds: "1.1",
+            teamB_amount: "300",
+            teamB_odds: "2.2",
+            draw_amount: "200",
+            draw_odds: "2.3",
+            profits:"200",
+            result: "undecided",
+            date_placed: "2019/02/03"
+        };
+        await bets_service.insertBet(bet,'1');
+        //done();
     });
 
 
@@ -39,7 +53,6 @@ describe("Dutch 3 way controller test :", () => {
                 .send(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.equal('added new bet');
                     done();
                 });
         });

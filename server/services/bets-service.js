@@ -1,32 +1,9 @@
 "use strict";
-const sqlite3 = require('sqlite-async')
-
-let db = null;
-
-async function createDb() {
-    try {
-        db = await sqlite3.open(process.env.DATABASE);
-        const sql = `
-             CREATE TABLE IF NOT EXISTS bets (
-                bet_id integer PRIMARY KEY, 
-                user_id integer, 
-                title text, 
-                type text, 
-                stakes REAL,
-                winnings REAL,
-                profits REAL,
-                date_placed text)`
-        await db.run(sql);
-    }
-    catch (er) {
-        throw new Error(er);
-    }
-}
-
-createDb();
+const sqlite3 = require('sqlite-async');
 
 async function insertBet(bet, user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let result = await db.run('INSERT INTO bets (user_id, title, type, stakes, winnings, profits, date_placed) VALUES (?,?,?,?,?,?,?)', [user_id, bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.date_placed]);
         return result.lastID;
     }
@@ -37,6 +14,7 @@ async function insertBet(bet, user_id) {
 
 async function getBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let found_bet = await db.get(`SELECT * FROM bets WHERE bet_id = ? `, bet.bet_id);
         return found_bet;
     }
@@ -47,9 +25,10 @@ async function getBet(bet) {
 
 async function getAllBets(user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let rows = await db.all(`SELECT * FROM bets WHERE user_id = ?`, [user_id]);
         let bets = await rows.map(async (row) => {
-            let detailedRow = await getBetDetails(row, user_id);
+            let detailedRow = await getBetDetails(db, row, user_id);
             return detailedRow;
         })
         const all_bets = await Promise.all(bets);
@@ -60,7 +39,7 @@ async function getAllBets(user_id) {
     }
 }
 
-async function getBetDetails(bet, user_id) {
+async function getBetDetails(db, bet, user_id) {
     try {
         if (bet.type == 'd2w') {
             let all_bets = await db.get(`SELECT * FROM d2w AS betD INNER JOIN bets ON betD.bet_id = bets.bet_id WHERE bets.user_id = ? AND bets.bet_id =?`, user_id, bet.bet_id);
@@ -82,6 +61,7 @@ async function getBetDetails(bet, user_id) {
 
 async function updateBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let result = await db.run('update bets set (title, type, stakes, winnings, profits) = (?,?,?,?,?) where bet_id = ?', bet.title, bet.type, bet.stakes, bet.winnings, bet.profits, bet.bet_id);
         return result.lastID;
     } catch (er) {
@@ -91,6 +71,7 @@ async function updateBet(bet) {
 
 async function deleteBet(bet_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run(`DELETE FROM bets WHERE bet_id = ?`, bet_id);
     } catch (er) {
         throw new Error(er);
@@ -99,7 +80,11 @@ async function deleteBet(bet_id) {
 
 async function deleteAll() {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run('DELETE FROM bets');
+        await db.run('DELETE FROM blay');
+        await db.run('DELETE FROM d2w');
+        await db.run('DELETE FROM d3w');
     } catch (er) {
         throw new Error(er);
     }

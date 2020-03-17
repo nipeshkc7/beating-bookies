@@ -19,8 +19,9 @@ async function addBet(req, res, next) {
             result: req.body.result,
         }
         await bet_service.insertBet(bets, user_id);
-        return res.status('200').end({msg: 'added new bet'});
+        return res.status('200').end('added new bet');
     } catch (er) {
+        console.log("OOPS ERROR OCCURED::" );
         console.log(er);
         return res.status('500').end('Server error: ' + er);
     }
@@ -69,9 +70,9 @@ async function getBet(req, res, next) {
 async function getAll(req, res, next) {
     try {
         let bets = await bet_service.getAllBets(req.query.user_id);
-        return res.status('200').end(bets);
+        return res.status('200').json(bets);
     } catch (er) {
-        return res.status('500').end('Server error: ' + er);
+        return res.status('500').end('Server error: ');
     }
 }
 

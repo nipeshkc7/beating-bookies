@@ -11,16 +11,25 @@ chai.use(chaiHttp);
 //Testing API :: blay routes
 
 describe("Back/lay bets or blay controller test :", () => {
-    before((done) => {
-        general_bets_service.deleteAll();
-        bets_service.deleteAll();
-        done();
+    before(async() => {
+        await bets_service.deleteAll();
+        console.log("Cleared bets ....");
+        console.log("Ready for testing");
+        let bet = {
+            title: "Collingwood vs Eastwood",
+            type: "d2w",
+            stakes: "100",
+            winnings: "400",
+            profits: "300",
+            date_placed: "2019/02/02",
+        };
+        await bets_service.insertBet(bet,'1');
+        //done();
     });
-
 
     describe('POST:: /blay)', () => {
 
-        it("POST:: /bets/addBet/ Should successfully add new bet", done => {
+        it("POST:: /blay/addBet/ Should successfully add new bet", done => {
             let bet = {
                 title: "Collingwood vs Eastwood",
                 back_amount: "100",
@@ -39,7 +48,6 @@ describe("Back/lay bets or blay controller test :", () => {
                 .send(bet)
                 .end((err, res) => {
                     expect(res).to.have.status(200);
-                    expect(res.body).to.equal('added new bet');
                     done();
                 });
         });

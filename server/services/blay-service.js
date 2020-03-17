@@ -2,34 +2,10 @@
 const sqlite3 = require('sqlite-async')
 const { blay_to_general } = require('../util/bet_type_converter');
 const general_bet_service = require('../services/bets-service');
-let db = null;
-
-async function createDb() {
-    try {
-        db = await sqlite3.open(process.env.DATABASE);
-        const sql = `
-             CREATE TABLE IF NOT EXISTS blay (
-                bet_id integer PRIMARY KEY, 
-                back_amount text, 
-                back_odds text, 
-                lay_odds text,
-                lay_amount text,
-                profits text,
-                SNR text,
-                result text,
-                betfair_commission text
-                )`
-        await db.run(sql);
-    }
-    catch (er) {
-        throw new Error(er);
-    }
-}
-
-createDb();
 
 async function insertBet(bet, user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let general_bet = blay_to_general(bet);
         let bet_id = await general_bet_service.insertBet(general_bet, user_id);
         await db.run('INSERT INTO blay (bet_id, back_amount, back_odds, lay_odds, lay_amount, profits, SNR, result, betfair_commission) VALUES (?,?,?,?,?,?,?,?,?)', [bet_id, bet.back_amount, bet.back_odds, bet.lay_odds, bet.lay_amount, bet.profits, bet.snr, bet.result, bet.betfair_commission]);
@@ -41,6 +17,7 @@ async function insertBet(bet, user_id) {
 
 async function getBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let found_bet = await db.get(`SELECT * FROM blay WHERE bet_id = ? `, bet.bet_id);
         return found_bet;
     }
@@ -51,6 +28,7 @@ async function getBet(bet) {
 
 async function getAllBets(user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let bets = await db.get(`
         select * 
         FROM blay
@@ -66,6 +44,7 @@ async function getAllBets(user_id) {
 
 async function updateBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let general_bet = blay_to_general(bet);
         await general_bet_service.updateBet(general_bet);
         await db.run('update blay set ( back_amount, back_odds, lay_odds, lay_amount, profits, SNR, result, betfair_commission) = (?,?,?,?,?,?,?,?) where bet_id = ?'
@@ -78,6 +57,7 @@ async function updateBet(bet) {
 
 async function deleteBet(bet_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run(`DELETE FROM blay WHERE bet_id = ?`, bet_id);
     } catch (er) {
         throw new Error(er);
@@ -86,6 +66,7 @@ async function deleteBet(bet_id) {
 
 async function deleteAll() {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run('DELETE FROM blay');
     } catch (er) {
         throw new Error(er);

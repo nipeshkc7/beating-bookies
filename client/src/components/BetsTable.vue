@@ -1,6 +1,22 @@
 <template>
   <section>
-    <b-table :data="betData" :columns="columns" :per-page="perPage" :paginated="isPaginated">
+    <b-table :data="betData" :per-page="perPage" :paginated="isPaginated">
+      <template slot-scope="props">
+        <b-table-column field="title" label="Title">
+          {{ props.row.title }}
+        </b-table-column>
+        <b-table-column field="type" label="Type">{{ props.row.type }}</b-table-column>
+        <b-table-column field="stakes" label="Stakes">{{ props.row.stakes }}</b-table-column>
+        <b-table-column field="winnings" label="Winnings">{{ props.row.winnings }}</b-table-column>
+        <b-table-column field="profits" label="Profits">{{ props.row.profits }}</b-table-column>
+        <b-table-column field="date_placed" label="Date Placed">
+          {{ props.row.date_placed }}
+        </b-table-column>
+        <b-table-column field="actions" label="">
+          <a href="#">Edit</a>  |
+          <a href="#">Delete</a>
+        </b-table-column>
+      </template>
     </b-table>
   </section>
 </template>
@@ -42,6 +58,10 @@ export default {
         {
           field: 'date_placed',
           label: 'Date Placed',
+        },
+        {
+          field: 'Actions',
+          label: 'Actions',
         },
       ],
     };

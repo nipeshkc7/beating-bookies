@@ -10,9 +10,20 @@ chai.use(chaiHttp);
 //Testing API :: bets routes
 
 describe("Bets controller test :", () => {
-    before((done) => {
-        bets_service.deleteAll();
-        done();
+    before(async() => {
+        await bets_service.deleteAll();
+        console.log("Cleared bets ....");
+        console.log("Ready for testing");
+        let bet = {
+            title: "Collingwood vs Eastwood",
+            type: "general",
+            stakes: "100",
+            winnings: "400",
+            profits: "300",
+            date_placed: "2019/02/02",
+        };
+        await bets_service.insertBet(bet,'1');
+        //done();
     });
 
 
@@ -20,8 +31,8 @@ describe("Bets controller test :", () => {
 
         it("POST:: /bets/addBet/ Should successfully add new bet", done => {
             let bet = {
-                title: "Collingwood vs Eastwood",
-                type: "d2w",
+                title: "Maccershill vs Jackershill",
+                type: "general",
                 stakes: "100",
                 winnings: "400",
                 profits: "300",
@@ -32,8 +43,8 @@ describe("Bets controller test :", () => {
                 .post('/bets/addBet')
                 .send(bet)
                 .end((err, res) => {
+                    if(err) console.console.error(err);
                     expect(res).to.have.status(200);
-                    expect(res.body).to.equal('added new bet');
                     done();
                 });
         });
@@ -44,7 +55,7 @@ describe("Bets controller test :", () => {
                 .get('/bets/getAll')
                 .query({ user_id: '1' })
                 .end((err, res) => {
-                    console.log(res.body);
+                    if (err) console.error(err);
                     expect(res).to.have.status(200);
                     expect(res.body).to.be.an('array');
                     expect(res.body[0]).to.include({ title: "Collingwood vs Eastwood" });

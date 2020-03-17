@@ -2,35 +2,10 @@
 const sqlite3 = require('sqlite-async')
 const { d3w_to_general } = require('../util/bet_type_converter');
 const general_bet_service = require('../services/bets-service');
-let db = null;
-
-async function createDb() {
-    try {
-        db = await sqlite3.open(process.env.DATABASE);
-        const sql = `
-             CREATE TABLE IF NOT EXISTS d3w (
-                bet_id integer PRIMARY KEY, 
-                teamA_amount text, 
-                teamA_odds text, 
-                teamB_amount text,
-                teamB_odds text,
-                draw_amount text,
-                draw_odds text,
-                profits text,
-                result text
-                )`
-        await db.run(sql);
-    }
-    catch (er) {
-        console.log(er);
-        throw new Error(er);
-    }
-}
-
-createDb();
 
 async function insertBet(bet, user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let general_bet = d3w_to_general(bet);
         let bet_id = await general_bet_service.insertBet(general_bet, user_id);
         await db.run('INSERT INTO d3w (bet_id, teamA_amount, teamA_odds, teamB_amount, teamB_odds, draw_amount, draw_odds, profits, result) VALUES (?,?,?,?,?,?,?,?,?)',
@@ -43,6 +18,7 @@ async function insertBet(bet, user_id) {
 
 async function getBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let found_bet = await db.get(`SELECT * FROM d3w WHERE bet_id = ? `, bet.bet_id);
         return found_bet;
     }
@@ -53,6 +29,7 @@ async function getBet(bet) {
 
 async function getAllBets(user_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let bets = await db.get(`
         select * 
         FROM d3w
@@ -68,6 +45,7 @@ async function getAllBets(user_id) {
 
 async function updateBet(bet) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         let general_bet = d3w_to_general(bet);
         await general_bet_service.updateBet(general_bet);
         await db.run('update d3w set (teamA_amount, teamA_odds, teamB_amount, teamB_odds, draw_amount, draw_odds, profits, result) = (?,?,?,?,?,?,?,?) where bet_id = ?'
@@ -79,6 +57,7 @@ async function updateBet(bet) {
 
 async function deleteBet(bet_id) {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run(`DELETE FROM d3w WHERE bet_id = ?`, bet_id);
     } catch (er) {
         throw new Error(er);
@@ -87,6 +66,7 @@ async function deleteBet(bet_id) {
 
 async function deleteAll() {
     try {
+        let db = await sqlite3.open(process.env.DATABASE);
         await db.run('DELETE FROM d3w');
     } catch (er) {
         throw new Error(er);
