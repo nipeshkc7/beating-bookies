@@ -3,14 +3,15 @@
     <!-- Navbar Component -->
     <Navbar></Navbar>
     <section>
-      <b-modal :active.sync="isModalActive"
+      <b-modal
+        :active.sync="isModalActive"
         has-modal-card
         trap-focus
         aria-role="dialog"
         :can-cancel="['escape','outside']"
         aria-modal
         :height="60"
-        >
+      >
         <AddBets></AddBets>
       </b-modal>
     </section>
@@ -46,10 +47,11 @@
               <article class="tile is-child box is-info">
                 <div class="level">
                   <p class="title level-right">Your bets ...</p>
-                  <b-button class="level-left button is-primary" icon-left="plus"
-                  @click="isModalActive = true">
-                    Add Bet
-                  </b-button>
+                  <b-button
+                    class="level-left button is-primary"
+                    icon-left="plus"
+                    @click="isModalActive = true"
+                  >Add Bet</b-button>
                 </div>
                 <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"></BetsTable>
               </article>
@@ -112,6 +114,22 @@ export default {
           else this.server_msg = 'Server Error . Please try again later';
         });
     },
+    delete(id) {
+      this.$http
+        .post('http://localhost:4000/bets/delete', {
+          params: {
+            id,
+          },
+        })
+        .then(
+          ((response) => {
+            this.server_msg = response;
+          }).catch((error) => {
+            this.server_msg = 'Server Error. Unable to delete bet';
+            console.log(error);
+          }),
+        );
+    },
   },
   computed: {
     total_profits() {
@@ -126,7 +144,7 @@ export default {
     biggest_win() {
       const biggestWin = this.betData.reduce((p, v) => {
         if (!Number.isNaN(Number(v.profits))) {
-          return (p > v.profits ? p : v.profits);
+          return p > v.profits ? p : v.profits;
         }
         return p;
       }, 0);
@@ -135,7 +153,7 @@ export default {
     average_conversion() {
       const totalSuccess = this.betData.reduce((p, v) => {
         if (!Number.isNaN(Number(v.profits))) {
-          return (v.profits > 0 ? 1 + p : p);
+          return v.profits > 0 ? 1 + p : p;
         }
         return p;
       }, 0);

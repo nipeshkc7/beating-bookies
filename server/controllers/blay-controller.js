@@ -4,8 +4,8 @@ const bet_service = require('../services/blay-service');
 
 async function addBet(req, res, next) {
     try {
-        console.log("ADDING BET");
         let user_id = await getUserId(req.headers.authorization);
+        if (!user_id) return res.status('401').end('Unauthorized access');
         let bets = {
             title: req.body.title,
             back_amount: req.body.back_amount,
@@ -21,7 +21,6 @@ async function addBet(req, res, next) {
         await bet_service.insertBet(bets, user_id);
         return res.status('200').end('added new bet');
     } catch (er) {
-        console.log("OOPS ERROR OCCURED::" );
         console.log(er);
         return res.status('500').end('Server error: ' + er);
     }

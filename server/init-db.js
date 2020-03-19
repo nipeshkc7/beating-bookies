@@ -20,6 +20,18 @@ async function init_db() {
    profits REAL,
    date_placed text)`);
 
+   await db.run(`CREATE TABLE IF NOT EXISTS blay (
+    bet_id integer PRIMARY KEY, 
+    back_amount text, 
+    back_odds text, 
+    lay_amount text,
+    lay_odds text,
+    snr text,
+    betfair_commission text,
+    profits text,
+    result text
+    )`);
+
     await db.run(`CREATE TABLE IF NOT EXISTS d2w (
    bet_id integer PRIMARY KEY, 
    teamA_amount text, 

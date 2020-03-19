@@ -9,10 +9,11 @@ function authorize(condition) {
             }
             jwt.verify(req.headers.authorization, config.secret, function (err, decoded) {
                 if (decoded && condition.is_admin == req.headers.isadmin) {
+                    console.log('decoded');
                     return next();
                 }
+                if(err) return res.status('401').end('Unauthorized Access');
             });
-            return res.status('401').end('Unauthorized Access');
         }
     ]
 }
@@ -25,6 +26,7 @@ async function getUserId(authorization){
         return decoded.id;
     }catch(er){
         console.log(er);
+        return null;
     }
 }
 

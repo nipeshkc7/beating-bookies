@@ -10,7 +10,7 @@
                 <b-field label="Title" expanded>
                   <b-input v-model="blay_bet.title" placeholder="Bet title"></b-input>
                 </b-field>
-                <b-field label="SNR" :label-position="labelPosition">
+                <b-field label="SNR">
                   <b-select placeholder="Select option" v-model="blay_bet.snr" required>
                     <option value="yes">Yes</option>
                     <option value="no">No</option>
@@ -57,7 +57,7 @@
                 <b-field label="Profits" expanded>
                   <b-input v-model="blay_bet.profits" placeholder="Profits"></b-input>
                 </b-field>
-                <b-field label="Results" :label-position="labelPosition">
+                <b-field label="Results">
                   <b-select v-model="blay_bet.result" placeholder="Select option">
                     <option value="undecided">undecided</option>
                     <option value="win">Back wins</option>
@@ -83,7 +83,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="$parent.close()">Close</button>
+              <button class="button" type="button" @click="closeModal()">Close</button>
               <button class="button is-primary" @click="addBet()">Add Bet</button>
             </footer>
           </div>
@@ -140,7 +140,7 @@
                 <b-field label="Profits" expanded>
                   <b-input v-model="d2w_bet.profits" placeholder="Profits"></b-input>
                 </b-field>
-                <b-field label="Results" :label-position="labelPosition">
+                <b-field label="Results">
                   <b-select v-model="d2w_bet.result" placeholder="Select option">
                     <option value="undecided">undecided</option>
                     <option value="teamA">team A wins</option>
@@ -159,7 +159,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="$parent.close()">Close</button>
+              <button class="button" type="button" @click="closeModal()">Close</button>
               <button class="button is-primary" @click="addD2WBet()">Add Bet</button>
             </footer>
           </div>
@@ -234,7 +234,7 @@
                 <b-field label="Profits" expanded>
                   <b-input v-model="d3w_bet.profits" placeholder="Profits"></b-input>
                 </b-field>
-                <b-field label="Results" :label-position="labelPosition">
+                <b-field label="Results">
                   <b-select v-model="d3w_bet.result" placeholder="Select option">
                     <option value="undecided">undecided</option>
                     <option value="teamA">team A wins</option>
@@ -252,14 +252,13 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="$parent.close()">Close</button>
+              <button class="button" type="button" @click="closeModal()">Close</button>
               <button class="button is-primary" @click="addD3WBet()">Add Bet</button>
             </footer>
           </div>
         </form>
       </b-tab-item>
       <!-- Dutch3Way tab end -->
-      <!-- <b-tab-item label="General bets">GeneralBet</b-tab-item> -->
     </b-tabs>
   </section>
 </template>
@@ -319,11 +318,11 @@ export default {
           ...this.blay_bet,
         })
         .then((response) => {
+          this.successMsg('Successfully added new bet');
           console.log(response);
         })
         .catch((error) => {
-          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
-          else this.server_msg = 'Server Error . Please try again later';
+          this.failureMsg(error);
         });
     },
     addD2WBet() {
@@ -332,11 +331,11 @@ export default {
           ...this.d2w_bet,
         })
         .then((response) => {
+          this.successMsg('Successfully added new bet');
           console.log(response);
         })
         .catch((error) => {
-          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
-          else this.server_msg = 'Server Error . Please try again later';
+          this.failureMsg(error);
         });
     },
     addD3WBet() {
@@ -345,12 +344,31 @@ export default {
           ...this.d3w_bet,
         })
         .then((response) => {
+          this.successMsg('Successfully added new bet');
           console.log(response);
         })
         .catch((error) => {
-          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
-          else this.server_msg = 'Server Error . Please try again later';
+          this.failureMsg(error);
         });
+    },
+    successMsg(msg) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: msg,
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    failureMsg(msg) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: msg,
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
+    },
+    closeModal() {
+      this.$router.go();
     },
   },
 };

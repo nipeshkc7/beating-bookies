@@ -5,6 +5,7 @@ const bet_service = require('../services/d3w-service');
 async function addBet(req, res, next) {
     try {
         let user_id = await getUserId(req.headers.authorization);
+        if (!user_id) return res.status('401').end('Unauthorized access');
         let bets = {            
             title: req.body.title,
             teamA_amount: req.body.teamA_amount,
