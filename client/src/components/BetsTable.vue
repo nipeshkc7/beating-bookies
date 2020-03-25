@@ -14,7 +14,7 @@
         </b-table-column>
         <b-table-column field="actions" label="">
           <a href="#">Edit</a>  |
-          <a href="#">Delete</a>
+          <a href="#" @click="deleteBet(props.row.bet_id, props.row.type)">Delete</a>
         </b-table-column>
       </template>
     </b-table>
@@ -65,6 +65,43 @@ export default {
         },
       ],
     };
+  },
+  methods: {
+    deleteBet(id, betType) {
+      console.log(id);
+      console.log(betType);
+      this.$http
+        .post(`${process.env.VUE_APP_SERVER_URL}bets/deleteBet`, {
+          id,
+          betType,
+        })
+        .then(
+          ((response) => {
+            this.server_msg = response;
+            this.successMsg('Deleted bet');
+            this.$emit('update-bet-data');
+          }),
+        ).catch((error) => {
+          this.server_msg = 'Server Error. Unable to delete bet';
+          this.failureMsg(error);
+        });
+    },
+    successMsg(msg) {
+      this.$buefy.toast.open({
+        duration: 3000,
+        message: msg.toString(),
+        position: 'is-top',
+        type: 'is-success',
+      });
+    },
+    failureMsg(msg) {
+      this.$buefy.toast.open({
+        duration: 5000,
+        message: msg.toString(),
+        position: 'is-bottom',
+        type: 'is-danger',
+      });
+    },
   },
 };
 </script>

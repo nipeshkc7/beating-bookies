@@ -87,7 +87,8 @@ describe("Bets controller test :", () => {
         //Deleting a bet
         it("POST:: /bets/deleteBet/ should delete a bet with the bet_id", done => {
             let bet = {
-                bet_id: "1"
+                id: "1",
+                betType: "general"
             };
             chai.request(server)
                 .post('/bets/deleteBet')

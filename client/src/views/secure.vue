@@ -52,7 +52,9 @@
                     @click="isModalActive = true"
                   >Add Bet</b-button>
                 </div>
-                <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"></BetsTable>
+                <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"
+                @update-bet-data="getBetData()">
+                </BetsTable>
               </article>
             </div>
           </div>
@@ -111,22 +113,6 @@ export default {
         .catch((error) => {
           console.log(error);
         });
-    },
-    delete(id) {
-      this.$http
-        .post(`${process.env.VUE_APP_SERVER_URL}bets/delete`, {
-          params: {
-            id,
-          },
-        })
-        .then(
-          ((response) => {
-            this.server_msg = response;
-          }).catch((error) => {
-            this.server_msg = 'Server Error. Unable to delete bet';
-            console.log(error);
-          }),
-        );
     },
   },
   computed: {

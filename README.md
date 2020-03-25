@@ -37,17 +37,17 @@ cd client
 npm run serve
 ```
 
-API level tests are done using Mocha and Chai. 
-
 ### Run tests
+
+API level tests are done using Mocha and Chai. 
 
 ```
 npm test
 ```
 
-# Required environment variables
+## Required environment variables
 
-Recommended you have a .env file inside the root folder with the following variables:
+Recommended you have a .env file inside the root folder with the following variables for the server environment:
 ```
 GOOGLE_CLIENT_ID= 
 GOOGLE_CLIENT_SECRET=
@@ -58,3 +58,8 @@ CLIENT_URL=
 
 NODE_ENV =          // 'dev' or 'test' or 'prod'
 ``` 
+
+You will also need the following environment variables in the vue environment:
+```
+VUE_APP_SERVER_URL = http://localhost:4000/
+```

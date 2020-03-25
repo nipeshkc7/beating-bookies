@@ -23,7 +23,7 @@ async function addBet(req, res, next) {
 
 async function deleteBet(req, res, next) {
     try {
-        await bet_service.deleteBet(req.body.bet_id);
+        await bet_service.deleteBet(req.body.id, req.body.betType);
         return res.status('200').json('Successfully deleted bet');
     } catch (er) {
         return res.status('500').json('Server error: ' + er);

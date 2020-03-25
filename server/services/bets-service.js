@@ -69,11 +69,15 @@ async function updateBet(bet) {
     }
 }
 
-async function deleteBet(bet_id) {
+async function deleteBet(bet_id, bet_type) {
     try {
         let db = await sqlite3.open(process.env.DATABASE);
         await db.run(`DELETE FROM bets WHERE bet_id = ?`, bet_id);
+        if(bet_type == 'blay') await db.run(`DELETE FROM blay WHERE bet_id = ?`, bet_id);
+        if(bet_type == 'd2w') await db.run(`DELETE FROM d2w WHERE bet_id = ?`, bet_id);
+        if(bet_type == 'd32') await db.run(`DELETE FROM d3w WHERE bet_id = ?`, bet_id);
     } catch (er) {
+        console.log(er);
         throw new Error(er);
     }
 }
