@@ -314,7 +314,7 @@ export default {
   methods: {
     addBet() {
       this.$http
-        .post('http://localhost:4000/blay/addBet', {
+        .post(`${process.env.VUE_APP_SERVER_URL}blay/addBet`, {
           ...this.blay_bet,
         })
         .then((response) => {
@@ -327,7 +327,7 @@ export default {
     },
     addD2WBet() {
       this.$http
-        .post('http://localhost:4000/d2w/addBet', {
+        .post(`${process.env.VUE_APP_SERVER_URL}d2w/addBet`, {
           ...this.d2w_bet,
         })
         .then((response) => {
@@ -340,7 +340,7 @@ export default {
     },
     addD3WBet() {
       this.$http
-        .post('http://localhost:4000/d3w/addBet', {
+        .post(`${process.env.VUE_APP_SERVER_URL}d3w/addBet`, {
           ...this.d3w_bet,
         })
         .then((response) => {
@@ -354,7 +354,7 @@ export default {
     successMsg(msg) {
       this.$buefy.toast.open({
         duration: 5000,
-        message: msg,
+        message: msg.toString(),
         position: 'is-top',
         type: 'is-success',
       });
@@ -362,7 +362,7 @@ export default {
     failureMsg(msg) {
       this.$buefy.toast.open({
         duration: 5000,
-        message: msg,
+        message: msg.toString(),
         position: 'is-bottom',
         type: 'is-danger',
       });

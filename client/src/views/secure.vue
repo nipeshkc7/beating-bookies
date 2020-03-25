@@ -20,7 +20,6 @@
         <SideBar></SideBar>
       </div>
       <div class="container main-content column">
-        <!-- <h1 class="title">Dashboard</h1> -->
         <div class="tile is-ancestor">
           <div class="tile is-parent">
             <article class="tile is-child box notification is-info">
@@ -101,7 +100,7 @@ export default {
   methods: {
     getBetData() {
       this.$http
-        .get('http://localhost:4000/bets/getAll', {
+        .get(`${process.env.VUE_APP_SERVER_URL}bets/getAll`, {
           params: {
             user_id: JSON.parse(localStorage.getItem('user')).id,
           },
@@ -110,13 +109,12 @@ export default {
           this.betData = response.data;
         })
         .catch((error) => {
-          if (error.response.status === 401) this.server_msg = 'Cannot get Bet data';
-          else this.server_msg = 'Server Error . Please try again later';
+          console.log(error);
         });
     },
     delete(id) {
       this.$http
-        .post('http://localhost:4000/bets/delete', {
+        .post(`${process.env.VUE_APP_SERVER_URL}bets/delete`, {
           params: {
             id,
           },
