@@ -5,7 +5,17 @@
         <b-table-column field="title" label="Title">
           {{ props.row.title }}
         </b-table-column>
-        <b-table-column field="type" label="Type">{{ props.row.type }}</b-table-column>
+        <b-table-column field="type" label="Type">
+          {{ props.row.type }}
+          <b-modal :active.sync="isModalActive"
+                 v-if="toEdit == props.row.bet_id"
+                 has-modal-card
+                 trap-focus
+                 aria-role="dialog"
+                 aria-modal>
+            <EditBets v-bind:betData="props.row" v-if="toEdit == props.row.bet_id"></EditBets>
+          </b-modal>
+        </b-table-column>
         <b-table-column field="stakes" label="Stakes">{{ props.row.stakes }}</b-table-column>
         <b-table-column field="winnings" label="Winnings">{{ props.row.winnings }}</b-table-column>
         <b-table-column field="profits" label="Profits">{{ props.row.profits }}</b-table-column>
@@ -13,7 +23,7 @@
           {{ props.row.date_placed }}
         </b-table-column>
         <b-table-column field="actions" label="">
-          <a href="#">Edit</a>  |
+          <a href="#" @click="editBet(props.row)">Edit</a>  |
           <a href="#" @click="deleteBet(props.row.bet_id, props.row.type)">Delete</a>
         </b-table-column>
       </template>
@@ -22,6 +32,8 @@
 </template>
 
 <script>
+import EditBets from './EditBets.vue';
+
 export default {
   name: 'BetsTable',
   props: {
@@ -29,8 +41,13 @@ export default {
     isPaginated: Boolean,
     betData: Array,
   },
+  components: {
+    EditBets,
+  },
   data() {
     return {
+      toEdit: 0,
+      isModalActive: false,
       columns: [
         {
           field: 'title',
@@ -68,8 +85,6 @@ export default {
   },
   methods: {
     deleteBet(id, betType) {
-      console.log(id);
-      console.log(betType);
       this.$http
         .post(`${process.env.VUE_APP_SERVER_URL}bets/deleteBet`, {
           id,
@@ -85,6 +100,11 @@ export default {
           this.server_msg = 'Server Error. Unable to delete bet';
           this.failureMsg(error);
         });
+    },
+    editBet(bet) {
+      console.log('triggered');
+      this.isModalActive = true;
+      this.toEdit = bet.bet_id;
     },
     successMsg(msg) {
       this.$buefy.toast.open({
