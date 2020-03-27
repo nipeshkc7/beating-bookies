@@ -340,7 +340,7 @@ export default {
     },
     addD3WBet() {
       this.$http
-        .post(`${process.env.VUE_APP_SERVER_URL}d3w /addBet`, {
+        .post(`${process.env.VUE_APP_SERVER_URL}d3w/addBet`, {
           ...this.d3w_bet,
         })
         .then((response) => {

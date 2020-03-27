@@ -7,14 +7,6 @@
         </b-table-column>
         <b-table-column field="type" label="Type">
           {{ props.row.type }}
-          <b-modal :active.sync="isModalActive"
-                 v-if="toEdit == props.row.bet_id"
-                 has-modal-card
-                 trap-focus
-                 aria-role="dialog"
-                 aria-modal>
-            <EditBets v-bind:betData="props.row" v-if="toEdit == props.row.bet_id"></EditBets>
-          </b-modal>
         </b-table-column>
         <b-table-column field="stakes" label="Stakes">{{ props.row.stakes }}</b-table-column>
         <b-table-column field="winnings" label="Winnings">{{ props.row.winnings }}</b-table-column>
@@ -23,8 +15,8 @@
           {{ props.row.date_placed }}
         </b-table-column>
         <b-table-column field="actions" label="">
-          <a href="#" @click="editBet(props.row)">Edit</a>  |
-          <a href="#" @click="deleteBet(props.row.bet_id, props.row.type)">Delete</a>
+          <a @click="editBet({...props.row})">Edit</a>  |
+          <a @click="deleteBet(props.row.bet_id, props.row.type)">Delete</a>
         </b-table-column>
       </template>
     </b-table>
@@ -32,7 +24,6 @@
 </template>
 
 <script>
-import EditBets from './EditBets.vue';
 
 export default {
   name: 'BetsTable',
@@ -41,12 +32,9 @@ export default {
     isPaginated: Boolean,
     betData: Array,
   },
-  components: {
-    EditBets,
-  },
   data() {
     return {
-      toEdit: 0,
+      betToEdit: {},
       isModalActive: false,
       columns: [
         {
@@ -102,9 +90,7 @@ export default {
         });
     },
     editBet(bet) {
-      console.log('triggered');
-      this.isModalActive = true;
-      this.toEdit = bet.bet_id;
+      this.$emit('edit-bet-data', bet);
     },
     successMsg(msg) {
       this.$buefy.toast.open({

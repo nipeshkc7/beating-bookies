@@ -4,7 +4,7 @@
     <Navbar></Navbar>
     <section>
       <b-modal
-        :active.sync="isModalActive"
+        :active.sync="isAddModalActive"
         has-modal-card
         trap-focus
         aria-role="dialog"
@@ -13,6 +13,19 @@
         :height="60"
       >
         <AddBets></AddBets>
+      </b-modal>
+    </section>
+    <section>
+      <b-modal
+        :active.sync="isEditModalActive"
+        has-modal-card
+        trap-focus
+        aria-role="dialog"
+        :can-cancel="['escape','outside']"
+        aria-modal
+        :height="60"
+      >
+        <EditBets v-bind:betData="betToEdit" v-if="isEditModalActive"></EditBets>
       </b-modal>
     </section>
     <div class="columns">
@@ -49,11 +62,11 @@
                   <b-button
                     class="level-left button is-primary"
                     icon-left="plus"
-                    @click="isModalActive = true"
+                    @click="isAddModalActive = true"
                   >Add Bet</b-button>
                 </div>
                 <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"
-                @update-bet-data="getBetData()">
+                @update-bet-data="getBetData()" @edit-bet-data="editBetData">
                 </BetsTable>
               </article>
             </div>
@@ -79,12 +92,15 @@ import BetsTable from '../components/BetsTable.vue';
 import SideBar from '../components/SideBar.vue';
 import Footer from '../components/Footer.vue';
 import AddBets from '../components/AddBets.vue';
+import EditBets from '../components/EditBets.vue';
 
 export default {
   name: 'Secure',
   data() {
     return {
-      isModalActive: false,
+      isAddModalActive: false,
+      isEditModalActive: false,
+      betToEdit: {},
       server_msg: '',
       betData: [],
     };
@@ -92,6 +108,7 @@ export default {
   components: {
     Navbar,
     BetsTable,
+    EditBets,
     AddBets,
     SideBar,
     Footer,
@@ -113,6 +130,13 @@ export default {
         .catch((error) => {
           console.log(error);
         });
+    },
+    editBetData(bet) {
+      Object.keys(this.betToEdit).forEach(k => delete this.betToEdit[k]);
+      this.betToEdit = JSON.parse(JSON.stringify(bet));
+      console.log(bet);
+      console.log(this.betToEdit);
+      this.isEditModalActive = true;
     },
   },
   computed: {
