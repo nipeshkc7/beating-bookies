@@ -1,7 +1,7 @@
 <template>
   <section class="card">
       <!-- Back/Lay bets form -->
-        <form v-if="betData.type == 'blay'" action>
+        <form v-if="betData.type === 'blay'" action>
           <div class="modal-card" style="width: auto;height:auto;">
             <section class="modal-card-body">
               <b-field grouped>
@@ -82,13 +82,13 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="updateBlayBet()">Add Bet</button>
+              <button class="button is-primary" @click="updateBlayBet()">Update Bet</button>
             </footer>
           </div>
         </form>
       <!-- Back/Lay bets tab END -->
       <!-- Dutch2Way bets tab -->
-        <form  v-if="betData.type == 'd2w'" action>
+        <form v-if="betData.type === 'd2w'" action>
           <div class="modal-card">
             <section class="modal-card-body">
               <b-field grouped>
@@ -162,7 +162,7 @@
         </form>
         <!-- Dutch2Way tab end -->
         <!-- Dutch3Way tab -->
-        <form  v-if="betData.type='d3w'" action>
+        <form  v-if="betData.type==='d3w'" action>
           <div class="modal-card">
             <section class="modal-card-body">
               <b-field grouped>
@@ -259,9 +259,15 @@
 export default {
   name: 'EditBets',
   props: {
-    betData: Object,
+    betData: {
+      type: Object,
+      required: true,
+    },
+    betTypeToEdit: String,
   },
   created() {
+    console.log('CREATING');
+    console.log(this.betData);
     if (this.betData.type === 'd2w') this.d2w_bet = this.betData;
     if (this.betData.type === 'd3w') this.d3w_bet = this.betData;
     if (this.betData.type === 'blay') this.blay_bet = this.betData;
@@ -276,6 +282,9 @@ export default {
     };
   },
   methods: {
+    updateBlayBet() {
+      return 'x';
+    },
     addBet() {
       this.$http
         .post(`${process.env.VUE_APP_SERVER_URL}blay/addBet`, {

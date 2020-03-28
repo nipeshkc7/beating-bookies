@@ -25,7 +25,9 @@
         aria-modal
         :height="60"
       >
-        <EditBets v-bind:betData="betToEdit" v-if="isEditModalActive"></EditBets>
+        <EditBets v-bind:betData="betToEdit" v-bind:betType="betTypeToEdit"
+        v-if="isEditModalActive">
+        </EditBets>
       </b-modal>
     </section>
     <div class="columns">
@@ -102,6 +104,7 @@ export default {
       isEditModalActive: false,
       betToEdit: {},
       server_msg: '',
+      betTypeToEdit: '',
       betData: [],
     };
   },
@@ -132,11 +135,11 @@ export default {
         });
     },
     editBetData(bet) {
-      Object.keys(this.betToEdit).forEach(k => delete this.betToEdit[k]);
-      this.betToEdit = JSON.parse(JSON.stringify(bet));
-      console.log(bet);
-      console.log(this.betToEdit);
-      this.isEditModalActive = true;
+      Object.assign(this.betToEdit, bet);
+      this.betTypeToEdit = bet.type;
+      console.table(this.betToEdit);
+      console.log(this.betTypeToEdit);
+      if (bet.type === this.betToEdit.type) this.isEditModalActive = true;
     },
   },
   computed: {
