@@ -137,8 +137,6 @@ export default {
     editBetData(bet) {
       Object.assign(this.betToEdit, bet);
       this.betTypeToEdit = bet.type;
-      console.table(this.betToEdit);
-      console.log(this.betTypeToEdit);
       if (bet.type === this.betToEdit.type) this.isEditModalActive = true;
     },
   },

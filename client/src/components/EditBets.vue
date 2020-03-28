@@ -266,8 +266,6 @@ export default {
     betTypeToEdit: String,
   },
   created() {
-    console.log('CREATING');
-    console.log(this.betData);
     if (this.betData.type === 'd2w') this.d2w_bet = this.betData;
     if (this.betData.type === 'd3w') this.d3w_bet = this.betData;
     if (this.betData.type === 'blay') this.blay_bet = this.betData;

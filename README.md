@@ -7,6 +7,14 @@ A free-to-use application made for matched-bettors. Used for tracking betting ac
 
 This is a completely API based backend using Node.js and front-end done using Vue.js.
 
+## Motivation
+
+Matched-betting has been around for some time now and is quite popular in the UK with different services like odds-monkey providing people with tools to make Matched betting feasible for the average bettor. With growing number of Australians learning about this risk free betting technique, people are looking into services like odds-monkey but more relevant to the Aussie market. This led to a surge in popularity in platforms like BonusBank which gives out daily plays and a variety of toolset to make the process more efficient. However these services do not provide cloud-based storage for tracking and updating user's matched-betting activities.
+
+Beating Bookies addresses these shortcomings by providing a free to use tracker that tracks user's bets, their profits and provides an interactive dashboard to see betting-related statistics. Additionally it provides calculators for placing different kinds of bets including back/lay bets, Dutch 2 way bets, Dutch 3 way bets.
+
+## Setup
+
 To setup and run the application on your local machine, Follow these instructions:
 
 # Server setup
@@ -61,5 +69,5 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 You will also need the following environment variables in the vue environment:
 ```
-VUE_APP_SERVER_URL = http://localhost:4000/
+VUE_APP_SERVER_URL = 
 ```
