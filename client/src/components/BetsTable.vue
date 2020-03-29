@@ -71,10 +71,6 @@ export default {
       ],
     };
   },
-  computed: {
-    betToEdit() {
-    }
-  },
   methods: {
     deleteBet(id, betType) {
       this.$http
@@ -94,6 +90,7 @@ export default {
         });
     },
     editBet(bet) {
+      console.log('hello');
       this.$emit('edit-bet-data', bet);
     },
     successMsg(msg) {
