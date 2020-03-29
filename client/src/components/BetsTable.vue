@@ -71,6 +71,10 @@ export default {
       ],
     };
   },
+  computed: {
+    betToEdit() {
+    }
+  },
   methods: {
     deleteBet(id, betType) {
       this.$http
