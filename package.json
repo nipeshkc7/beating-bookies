@@ -6,8 +6,8 @@
       "node": "8.11.x"
     },
     "scripts": {
-        "start": "cd server/ && npm install && node server/index.js",
-        "build": "cd client/ && npm install && npm run build"
+        "start": "cd server && npm install && node server/index.js",
+        "build": "cd client && npm install && npm run build"
       },
       "repository": {
         "type": "git",

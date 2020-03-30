@@ -13,47 +13,66 @@ Matched-betting has been around for some time now and is quite popular in the UK
 
 Beating Bookies addresses these shortcomings by providing a free to use tracker that tracks user's bets, their profits and provides an interactive dashboard to see betting-related statistics. Additionally it provides calculators for placing different kinds of bets including back/lay bets, Dutch 2 way bets, Dutch 3 way bets.
 
-## Setup
+## Developer Setup
 
 To setup and run the application on your local machine, Follow these instructions:
 
-# Server setup
+- Fork this repository, and cd into it.
+
+```bash
+git clone https://github.com/nipeshkc7/matched-betting-tracker.git
+cd matched-betting-tracker/
+```
+
+### Server setup and run
+
+Cd into server, install dependencies.
 
 ```
 cd server
 npm install
 ```
 
-# Client setup
+Create a sqlite database (inside server):
 
 ```
-cd client
-npm install
+npm run setup_db_dev
 ```
 
-### Run server
+Start server:
 
 ```
-cd server
 npm run dev
 ```
 
-### Run client
+### Client setup and run
+
+Cd into client, install dependencies and run 'serve' script
 
 ```
 cd client
+npm install
 npm run serve
 ```
 
 ### Run tests
 
-API level tests are done using Mocha and Chai. 
+API level tests are done using Mocha and Chai. Located inside 'server' (so cd into server first)
+
+Setup a test database using the following script:
 
 ```
+npm run setup_db_test
+```
+
+Start tests:
+
+```
+cd server
 npm test
 ```
 
-## Required environment variables
+### Required environment variables
 
 Recommended you have a .env file inside the root folder with the following variables for the server environment:
 ```
