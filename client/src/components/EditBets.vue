@@ -71,13 +71,6 @@
                     placeholder="Betfair commission"
                   ></b-input>
                 </b-field>
-                <b-field label="Date">
-                  <b-input
-                    v-model="blay_bet.date_placed"
-                    type="date"
-                    placeholder="Date"
-                  ></b-input>
-                </b-field>
               </b-field>
             </section>
             <footer class="modal-card-foot">
@@ -144,19 +137,10 @@
                   </b-select>
                 </b-field>
               </b-field>
-              <b-field grouped>
-                <b-field label="Date">
-                  <b-input
-                    v-model="d2w_bet.date_placed"
-                    type="date"
-                    placeholder="Date"
-                  ></b-input>
-                </b-field>
-              </b-field>
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="updateD2WBet()">Add Bet</button>
+              <button class="button is-primary" @click="updateD2WBet()">Update</button>
             </footer>
           </div>
         </form>
@@ -236,18 +220,11 @@
                     <option value="draw">Draw</option>
                   </b-select>
                 </b-field>
-                <b-field label="Date">
-                  <b-input
-                    v-model="d3w_bet.date_placed"
-                    type="date"
-                    placeholder="Date"
-                  ></b-input>
-                </b-field>
               </b-field>
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="updateD3WBet()">Add Bet</button>
+              <button class="button is-primary" @click="updateD3WBet()">Update</button>
             </footer>
           </div>
         </form>
@@ -281,11 +258,8 @@ export default {
   },
   methods: {
     updateBlayBet() {
-      return 'x';
-    },
-    addBet() {
       this.$http
-        .post(`${process.env.VUE_APP_SERVER_URL}blay/addBet`, {
+        .post(`${process.env.VUE_APP_SERVER_URL}blay/updateBet`, {
           ...this.blay_bet,
         })
         .then((response) => {
@@ -293,12 +267,13 @@ export default {
           console.log(response);
         })
         .catch((error) => {
+          console.error(error);
           this.failureMsg(error);
         });
     },
-    addD2WBet() {
+    updateD2WBet() {
       this.$http
-        .post(`${process.env.VUE_APP_SERVER_URL}d2w/addBet`, {
+        .post(`${process.env.VUE_APP_SERVER_URL}d2w/updateBet`, {
           ...this.d2w_bet,
         })
         .then((response) => {
@@ -309,9 +284,9 @@ export default {
           this.failureMsg(error);
         });
     },
-    addD3WBet() {
+    updateD3WBet() {
       this.$http
-        .post(`${process.env.VUE_APP_SERVER_URL}d3w /addBet`, {
+        .post(`${process.env.VUE_APP_SERVER_URL}d3w/updateBet`, {
           ...this.d3w_bet,
         })
         .then((response) => {
@@ -340,6 +315,7 @@ export default {
     },
     closeModal() {
       this.$router.go();
+      console.log('aint closin');
     },
   },
 };

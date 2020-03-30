@@ -90,7 +90,6 @@ export default {
         });
     },
     editBet(bet) {
-      console.log('hello');
       this.$emit('edit-bet-data', bet);
     },
     successMsg(msg) {

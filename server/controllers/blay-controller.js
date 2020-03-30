@@ -47,6 +47,7 @@ async function updateBet(req, res, next) {
             lay_odds: req.body.lay_odds,
             profits: req.body.profits,
             snr: req.body.snr,
+            result: req.body.result,
             betfair_commission: req.body.betfair_commission,
             date_placed: req.body.date_placed,
         }
