@@ -17,7 +17,7 @@ Beating Bookies addresses these shortcomings by providing a free to use tracker 
 
 To setup and run the application on your local machine, Follow these instructions:
 
-- Fork this repository, and cd into it.
+Clone this repository, and cd into it.
 
 ```bash
 git clone https://github.com/nipeshkc7/matched-betting-tracker.git

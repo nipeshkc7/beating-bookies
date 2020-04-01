@@ -32,10 +32,15 @@
     </section>
     <div class="columns">
       <div class="column is-2">
-        <SideBar></SideBar>
+        <SideBar
+        @view-bets="ViewBetsTable=true; ViewStats=false; ViewSettleBets=false"
+        @view-stats="ViewStats=true; ViewBetsTable=false; ViewSettleBets=false"
+        @view-dashboard="ViewBetsTable=true; ViewStats=true; ViewSettleBets=true"
+        @add-bet="isAddModalActive=true">
+        </SideBar>
       </div>
       <div class="container main-content column">
-        <div class="tile is-ancestor">
+        <div class="tile is-ancestor" v-if="ViewStats">
           <div class="tile is-parent">
             <article class="tile is-child box notification is-info">
               <p class="title">Average conversion</p>
@@ -56,7 +61,7 @@
           </div>
         </div>
         <div class="tile is-ancestor">
-          <div class="tile is-8 is-vertical">
+          <div class="tile is-8 is-vertical" v-if="ViewBetsTable">
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
                 <div class="level">
@@ -67,13 +72,13 @@
                     @click="isAddModalActive = true"
                   >Add Bet</b-button>
                 </div>
-                <BetsTable perPage="5" :isPaginated="true" v-bind:betData="betData"
+                <BetsTable v-bind:perPage="perPage" :isPaginated="true" v-bind:betData="betData"
                 @update-bet-data="getBetData()" @edit-bet-data="editBetData">
                 </BetsTable>
               </article>
             </div>
           </div>
-          <div class="tile is-4 is-vertical">
+          <div class="tile is-4 is-vertical" v-if="ViewSettleBets">
             <div class="tile is-parent">
               <article class="tile is-child box notification is-info">
                 <p class="title">ToDo:Settle these bets !</p>
@@ -102,6 +107,12 @@ export default {
     return {
       isAddModalActive: false,
       isEditModalActive: false,
+      isViewBetsTable: false,
+      isViewStats: false,
+      ViewStats: true,
+      ViewBetsTable: true,
+      ViewSettleBets: true,
+      perPage: 5,
       betToEdit: {},
       server_msg: '',
       betTypeToEdit: '',

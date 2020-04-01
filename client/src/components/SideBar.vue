@@ -2,10 +2,15 @@
     <div class="sideB">
         <b-menu>
             <b-menu-list>
-                <b-menu-item icon="view-dashboard" label="Dashboard"></b-menu-item>
-                <b-menu-item icon="plus" label="Add Bet(s)"></b-menu-item>
-                <b-menu-item icon="format-list-checkbox" label="View your bets"></b-menu-item>
-                <b-menu-item icon="wrench" :active="true">
+                <b-menu-item icon="view-dashboard" label="Dashboard"
+                @click="$emit('view-dashboard')">
+                </b-menu-item>
+                <b-menu-item icon="plus" label="Add Bet(s)" @click="$emit('add-bet')">
+                </b-menu-item>
+                <b-menu-item icon="format-list-checkbox" label="View your bets"
+                @click="$emit('view-bets')">
+                </b-menu-item>
+                <b-menu-item icon="wrench">
                 <template slot="label" slot-scope="props">
                     Toolset
                     <b-icon class="is-pulled-right"
@@ -20,10 +25,11 @@
                 <b-menu-item label="Edit account details"></b-menu-item>
                 <b-menu-item label="Delete account"></b-menu-item>
                 </b-menu-item>
-                <b-menu-item icon="chart-bar" label="View Stats"></b-menu-item>
+                <b-menu-item icon="chart-bar" label="View Stats" @click="$emit('view-stats')">
+                </b-menu-item>
             </b-menu-list>
             <b-menu-list label="Actions">
-                <b-menu-item label="Logout"></b-menu-item>
+                <b-menu-item label="Logout" @click="logout"></b-menu-item>
             </b-menu-list>
         </b-menu>
     </div>
@@ -38,6 +44,10 @@ export default {
     },
     closeNav() {
       document.getElementById('mySidenav').style.width = '90px';
+    },
+    logout() {
+      localStorage.clear();
+      this.$router.push('/');
     },
   },
 };
