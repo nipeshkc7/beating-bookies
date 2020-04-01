@@ -7,7 +7,8 @@
     "setup_db_test": "node -r dotenv/config init-db.js dotenv_config_path=../test.env",
     "setup_db_dev": "node -r dotenv/config init-db.js dotenv_config_path=../.env",
     "test": "mocha test --exit",
-    "dev": "node -r dotenv/config index.js dotenv_config_path=../.env"
+    "dev": "node -r dotenv/config index.js dotenv_config_path=../.env",
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
