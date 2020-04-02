@@ -8,7 +8,7 @@
     "setup_db_dev": "node -r dotenv/config init-db.js dotenv_config_path=../.env",
     "test": "mocha test --exit",
     "dev": "node -r dotenv/config index.js dotenv_config_path=../.env",
-    "preinstall": "npm install pm2",
+    "heroku-prebuild": "npm install pm2 -g",
     "start": "pm2-runtime start ecosystem.config.js --env production"
   },
   "keywords": [],
