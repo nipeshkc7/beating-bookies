@@ -4,9 +4,9 @@ name: Build and deploy
 # events but only for the master branch
 on:
   push:
-    branches: [ master ]
+    branches: [master]
   pull_request:
-    branches: [ master ]
+    branches: [master]
 
 jobs:
   # This workflow contains a single job called "build and deploy"
@@ -15,30 +15,25 @@ jobs:
     runs-on: ubuntu-latest
 
     env:
-      DATABASE : ${{secrets.DATABASE}}
-      NODE_ENV : ${{secrets.NODE_ENV}}
-      
+      DATABASE: ${{secrets.DATABASE}}
+      NODE_ENV: ${{secrets.NODE_ENV}}
+
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-    # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-    - uses: actions/checkout@v2
-    
-    - name: Run tests
-      run: |
-        cd server
-        npm install
-        npm run setup_db_test
-        npm run test
-  
-  deploy:
-    
-    runs-on: ubuntu-latest
-    
-    - name: Add remote origin
-      run: |
-        git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
-    
-    - name: Deploy backend to heroku
-      run: |
-        git subtree push --prefix server heroku master
-      
+      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
+      - uses: actions/checkout@v2
+
+      - name: Run tests
+        run: |
+          cd server
+          npm install
+          npm run setup_db_test
+          npm run test
+
+      - name: Add remote origin
+        run: |
+          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+
+      - name: Deploy backend to heroku
+        run: |
+          git subtree push --prefix server heroku master
