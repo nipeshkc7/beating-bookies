@@ -18,7 +18,7 @@ app.use(bodyParser.json());
 
 app.get('/', (req, res) => {
     res.json({
-        message: "homepage"
+        message: "eyy you found the head"
     });
 });
 
