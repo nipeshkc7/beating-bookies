@@ -10,7 +10,8 @@ on:
 
 jobs:
   # This workflow contains a single job called "build and deploy"
-  build:
+  test:
+    name: Test
     # The type of runner that the job will run on
     runs-on: ubuntu-latest
 
@@ -29,11 +30,18 @@ jobs:
           npm install
           npm run setup_db_test
           npm run test
+    
+  deploy:
+      name: Deploy
+      runs-on: ubuntu-latest
+      needs: test
 
-      - name: Add remote origin
-        run: |
-          git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+      steps: 
+        - name: Checkout
+          uses: actions/checkout@v1
 
-      - name: Deploy backend to heroku
-        run: |
-          git subtree push --prefix server heroku master
+        - name: Add remote origin
+          run: git remote add heroku https://heroku:${{ secrets.HEROKU_API_KEY }}@git.heroku.com/${{ secrets.HEROKU_APP_NAME }}.git
+
+        - name: Deploy backend to heroku
+          run: git subtree push --force --prefix server heroku master
