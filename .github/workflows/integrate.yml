@@ -45,7 +45,7 @@ jobs:
 
         - name: View remotes
           run: git remote
-          
+
         - name: Deploy backend to heroku
           #run: git subtree push --prefix server heroku master --force 
-          run: git push heroku `git subtree split --prefix server master`:master --force
+          run: git push --force heroku `git subtree split --prefix server HEAD`:master
