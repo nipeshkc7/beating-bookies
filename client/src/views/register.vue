@@ -75,12 +75,8 @@ export default {
         this.password === this.password_confirmation
         && this.password.length > 0
       ) {
-        let url = 'http://localhost:4000/user/register';
-        if (this.is_admin !== null || this.is_admin === 1) {
-          url = 'http://localhost:4000/user/register';
-        }
         this.$http
-          .post(url, {
+          .post(`${process.env.VUE_APP_SERVER_URL}user/register`, {
             name: this.name,
             email: this.email,
             password: this.password,

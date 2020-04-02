@@ -25,7 +25,7 @@ export default {
     oauth_login(code) {
       if (code) {
         this.$http
-          .post('http://localhost:4000/user/oauth', {
+          .post(`${process.env.VUE_APP_SERVER_URL}user/oauth`, {
             code: this.code,
           })
           .then((response) => {

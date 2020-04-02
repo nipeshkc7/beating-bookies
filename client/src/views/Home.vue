@@ -5,7 +5,7 @@
 </template>
 
 <script>
-const API_URL = 'http://localhost:4000/dummy';
+const API_URL = `${process.env.VUE_APP_SERVER_URL}dummy`;
 
 export default {
   name: 'home',

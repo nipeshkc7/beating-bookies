@@ -84,7 +84,7 @@ export default {
       e.preventDefault();
       if (this.password.length > 0) {
         this.$http
-          .post('http://localhost:4000/user/login', {
+          .post(`${process.env.VUE_APP_SERVER_URL}user/login`, {
             email: this.email,
             password: this.password,
           })
@@ -116,7 +116,7 @@ export default {
     redirectToGoogle() {
       // redirects to google login
       this.$http
-        .post('http://localhost:4000/user/oauth/redirect')
+        .post(`${process.env.VUE_APP_SERVER_URL}user/oauth/redirect`)
         .then((response) => {
           // response = { url: google Redirect url }
           window.location = response.data.url;
