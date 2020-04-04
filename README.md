@@ -81,7 +81,6 @@ GOOGLE_CLIENT_SECRET=
 GOOGLE_REDIRECT_URL=
 
 DATABASE=
-CLIENT_URL=
 
 NODE_ENV =          // 'dev' or 'test' or 'prod'
 ``` 
