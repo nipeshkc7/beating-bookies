@@ -34,7 +34,7 @@ async function google_login(req, res) {
 
 async function update_user(req, res) {
     try {
-        let update_status = await user_service.update_user(req.body.old_name, req.body.old_email, req.body.old_password, req.body.new_name, req.body.new_email, req.body.new_password);
+        let update_status = await user_service.update_user(req.body.old_email, req.body.new_name, req.body.new_email, req.body.new_password);
         if (!update_status)
             return res.status(500).send("Cannot update user details");
         return res.status(200).end("Ok");

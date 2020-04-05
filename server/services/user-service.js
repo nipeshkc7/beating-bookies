@@ -37,7 +37,7 @@ async function loginOauth(email) {
     }
 }
 
-async function update_user(old_name, old_email, old_password, new_name, new_email, new_password) {
+async function update_user(old_email, new_name, new_email, new_password) {
     let find_user = await getUserByEmail(old_email);
     if (!find_user) {
         return null;
