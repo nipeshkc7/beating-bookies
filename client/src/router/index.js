@@ -4,6 +4,7 @@ import login from '../views/login.vue';
 import secure from '../views/secure.vue';
 import register from '../views/register.vue';
 import redirectLogin from '../views/redirectLogin.vue';
+import account from '../views/account.vue';
 
 Vue.use(VueRouter);
 
@@ -42,6 +43,14 @@ const routes = [
     path: '/secure',
     name: 'secure',
     component: secure,
+    meta: {
+      requiresAuth: true,
+    },
+  },
+  {
+    path: '/account',
+    name: 'account',
+    component: account,
     meta: {
       requiresAuth: true,
     },

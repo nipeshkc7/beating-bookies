@@ -21,9 +21,10 @@
                 <b-menu-item icon="calculator" label="D3W Calculator"></b-menu-item>
                 <b-menu-item icon="calculator" label="Back/Lay Calculator"></b-menu-item>
                 </b-menu-item>
-                <b-menu-item icon="account" label="My Account">
-                <b-menu-item label="Edit account details"></b-menu-item>
-                <b-menu-item label="Delete account"></b-menu-item>
+                <b-menu-item icon="account" label="My Account" @click="$router.push('/account')">
+                <b-menu-item label="Edit account details" @click="$router.push('/account')">
+                </b-menu-item>
+                <b-menu-item label="Delete account" @click="$router.push('/account')"></b-menu-item>
                 </b-menu-item>
                 <b-menu-item icon="chart-bar" label="View Stats" @click="$emit('view-stats')">
                 </b-menu-item>
