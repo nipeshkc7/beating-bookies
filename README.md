@@ -1,5 +1,24 @@
+<p align="center">
+  <img src="https://github.com/nipeshkc7/matched-betting-tracker/blob/master/client/public/logo.png">
+</p>
 
-![Beating Bookies Logo](client/public/logo.png)
+<p align="center">
+    <a href="https://github.com/nipeshkc7">
+        <img src="https://img.shields.io/github/license/nipeshkc7/matched-betting-tracker" alt="License" />
+    </a>
+    <a href="https://github.com/nipeshkc7/matched-betting-tracker/actions">
+        <img src="https://img.shields.io/github/workflow/status/nipeshkc7/matched-betting-tracker/Build, Test and deploy" alt="Build status" />
+    </a>
+    <a href="https://github.com/nipeshkc7/matched-betting-tracker/">
+        <img src="https://img.shields.io/github/repo-size/nipeshkc7/matched-betting-tracker" alt="size" />
+    </a>
+    <a href="https://github.com/nipeshkc7/matched-betting-tracker/">
+        <img src="https://img.shields.io/github/languages/count/nipeshkc7/matched-betting-tracker" alt="languages" />
+    </a>
+    <a href="https://github.com/nipeshkc7/matched-betting-tracker/">
+        <img src="https://img.shields.io/github/languages/top/nipeshkc7/matched-betting-tracker" alt="top-language" />
+    </a>
+</p>
 
 ## Overview
 
