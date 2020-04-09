@@ -17,9 +17,13 @@
                     :icon="props.expanded ? 'menu-down' : 'menu-up'">
                     </b-icon>
                 </template>
-                <b-menu-item icon="calculator" label="D2W Calculator"></b-menu-item>
-                <b-menu-item icon="calculator" label="D3W Calculator"></b-menu-item>
-                <b-menu-item icon="calculator" label="Back/Lay Calculator"></b-menu-item>
+                <b-menu-item icon="calculator" label="D2W Calculator" @click="$emit('calculators')">
+                </b-menu-item>
+                <b-menu-item icon="calculator" label="D3W Calculator" @click="$emit('calculators')">
+                </b-menu-item>
+                <b-menu-item icon="calculator" label="Back/Lay Calculator"
+                @click="$emit('calculators')">
+                </b-menu-item>
                 </b-menu-item>
                 <b-menu-item icon="account" label="My Account" @click="$router.push('/account')">
                 <b-menu-item label="Edit account details" @click="$router.push('/account')">

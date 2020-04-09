@@ -30,13 +30,29 @@
         </EditBets>
       </b-modal>
     </section>
+    <section>
+      <b-modal
+        :active.sync="isCalculatorModalActive"
+        has-modal-card
+        trap-focus
+        aria-role="dialog"
+        :can-cancel="['escape','outside']"
+        aria-modal
+        :height="60"
+      >
+        <Calculators
+        v-if="isCalculatorModalActive">
+        </Calculators>
+      </b-modal>
+    </section>
     <div class="columns">
       <div class="column is-2">
         <SideBar
         @view-bets="ViewBetsTable=true; ViewStats=false; ViewSettleBets=false"
         @view-stats="ViewStats=true; ViewBetsTable=false; ViewSettleBets=false"
         @view-dashboard="ViewBetsTable=true; ViewStats=true; ViewSettleBets=true"
-        @add-bet="isAddModalActive=true">
+        @add-bet="isAddModalActive=true"
+        @calculators="isCalculatorModalActive=true">
         </SideBar>
       </div>
       <div class="container main-content column">
@@ -100,6 +116,7 @@ import SideBar from '../components/SideBar.vue';
 import Footer from '../components/Footer.vue';
 import AddBets from '../components/AddBets.vue';
 import EditBets from '../components/EditBets.vue';
+import Calculators from '../components/Calculators.vue';
 
 export default {
   name: 'Secure',
@@ -107,12 +124,13 @@ export default {
     return {
       isAddModalActive: false,
       isEditModalActive: false,
+      isCalculatorModalActive: false,
       isViewBetsTable: false,
       isViewStats: false,
       ViewStats: true,
       ViewBetsTable: true,
       ViewSettleBets: true,
-      perPage: 5,
+      perPage: '5',
       betToEdit: {},
       server_msg: '',
       betTypeToEdit: '',
@@ -124,6 +142,7 @@ export default {
     BetsTable,
     EditBets,
     AddBets,
+    Calculators,
     SideBar,
     Footer,
   },

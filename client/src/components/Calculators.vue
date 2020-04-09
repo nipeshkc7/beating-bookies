@@ -84,7 +84,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="addBet()">Add Bet</button>
+              <button class="button is-primary" @click="addBet()">Add This Bet</button>
             </footer>
           </div>
         </form>
@@ -160,7 +160,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="addD2WBet()">Add Bet</button>
+              <button class="button is-primary" @click="addD2WBet()">Add This Bet</button>
             </footer>
           </div>
         </form>
@@ -253,7 +253,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="closeModal()">Close</button>
-              <button class="button is-primary" @click="addD3WBet()">Add Bet</button>
+              <button class="button is-primary" @click="addD3WBet()">Add This Bet</button>
             </footer>
           </div>
         </form>
@@ -265,6 +265,46 @@
 
 <script>
 export default {
-    name: 'Calculators',
-}
+  name: 'Calculators',
+  data() {
+    return {
+      server_msg: '',
+      activeBet: 0,
+      blay_bet: {
+        title: '',
+        back_amount: '',
+        back_odds: '',
+        lay_amount: '',
+        lay_odds: '',
+        profits: '',
+        result: '',
+        snr: '',
+        betfair_commission: '5',
+        date_placed: `${(new Date()).toISOString().split('T')[0]}`,
+      },
+      d2w_bet: {
+        title: '',
+        teamA_amount: '',
+        teamB_amount: '',
+        teamA_odds: '',
+        teamB_odds: '',
+        profits: '',
+        result: '',
+        date_placed: `${(new Date()).toISOString().split('T')[0]}`,
+      },
+      d3w_bet: {
+        title: '',
+        teamA_amount: '',
+        teamB_amount: '',
+        teamA_odds: '',
+        teamB_odds: '',
+        draw_amount: '',
+        draw_odds: '',
+        profits: '',
+        result: '',
+        date_placed: `${(new Date()).toISOString().split('T')[0]}`,
+      },
+    };
+  },
+};
 </script>
