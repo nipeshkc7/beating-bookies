@@ -22,6 +22,8 @@
 
 ## Overview
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/e36c4adc3f21460883717a45f03c86d5)](https://app.codacy.com/manual/nipeshkc7/BeatingBookies?utm_source=github.com&utm_medium=referral&utm_content=nipeshkc7/BeatingBookies&utm_campaign=Badge_Grade_Dashboard)
+
 A free-to-use application made for matched-bettors. Used for tracking betting activities, profits along with matched-betting tools like dutching calculator, back-lay calculators. This application has support for Google Sign In and regular email sign in.
 
 This is a completely API based backend using Node.js and front-end done using Vue.js.
