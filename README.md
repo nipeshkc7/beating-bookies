@@ -18,6 +18,9 @@
     <a href="https://github.com/nipeshkc7/matched-betting-tracker/">
         <img src="https://img.shields.io/github/languages/top/nipeshkc7/matched-betting-tracker" alt="top-language" />
     </a>
+    <a href="https://www.codacy.com/manual/nipeshkc7/BeatingBookies?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=nipeshkc7/BeatingBookies&amp;utm_campaign=Badge_Grade">
+        <img src="https://api.codacy.com/project/badge/Grade/061f5002356e4f1ebcfaff6fedb8cc24" alt="top-language" />
+    </a>
 </p>
 
 ## Overview
