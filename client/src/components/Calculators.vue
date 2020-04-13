@@ -306,5 +306,19 @@ export default {
       },
     };
   },
+  watch: {
+    blay_bet() {
+      // edit blay_bet
+
+    },
+    d2w_bet() {
+      // edit d2w
+
+    },
+    d3w_bet() {
+      // edit d3w
+
+    },
+  },
 };
 </script>
