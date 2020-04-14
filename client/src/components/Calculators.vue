@@ -304,6 +304,64 @@ export default {
         result: '',
         date_placed: `${(new Date()).toISOString().split('T')[0]}`,
       },
+      addBet() {
+        this.$http
+          .post(`${process.env.VUE_APP_SERVER_URL}blay/addBet`, {
+            ...this.blay_bet,
+          })
+          .then((response) => {
+            this.successMsg('Successfully added new bet');
+            console.log(response);
+          })
+          .catch((error) => {
+            this.failureMsg(error);
+          });
+      },
+      addD2WBet() {
+        this.$http
+          .post(`${process.env.VUE_APP_SERVER_URL}d2w/addBet`, {
+            ...this.d2w_bet,
+          })
+          .then((response) => {
+            this.successMsg('Successfully added new bet');
+            console.log(response);
+          })
+          .catch((error) => {
+            this.failureMsg(error);
+          });
+      },
+      addD3WBet() {
+        this.$http
+          .post(`${process.env.VUE_APP_SERVER_URL}d3w/addBet`, {
+            ...this.d3w_bet,
+          })
+          .then((response) => {
+            this.successMsg('Successfully added new bet');
+            console.log(response);
+          })
+          .catch((error) => {
+            this.failureMsg(error);
+          });
+      },
+      successMsg(msg) {
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: msg.toString(),
+          position: 'is-top',
+          type: 'is-success',
+        });
+      },
+      failureMsg(msg) {
+        this.$buefy.toast.open({
+          duration: 5000,
+          message: msg.toString(),
+          position: 'is-bottom',
+          type: 'is-danger',
+        });
+      },
+      closeModal() {
+        this.$router.go();
+      },
     };
   },
   watch: {

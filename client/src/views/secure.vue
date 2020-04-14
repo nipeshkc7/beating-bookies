@@ -97,8 +97,8 @@
           <div class="tile is-4 is-vertical" v-if="ViewSettleBets">
             <div class="tile is-parent">
               <article class="tile is-child box notification is-info">
-                <p class="title">ToDo:Settle these bets !</p>
-                <p class="subtitle">{{ average_conversion }}</p>
+                <p class="title">Latest sports data</p>
+                <p class="subtitle"> Coming Soon ! </p>
               </article>
             </div>
           </div>
