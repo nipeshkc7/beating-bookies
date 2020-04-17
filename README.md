@@ -55,7 +55,7 @@ cd server
 npm install
 ```
 
-Create a sqlite database (inside server):
+Create a sqlite database (inside server folder):
 
 ```
 npm run setup_db_dev
