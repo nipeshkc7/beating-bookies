@@ -5,6 +5,7 @@ import secure from '../views/secure.vue';
 import register from '../views/register.vue';
 import redirectLogin from '../views/redirectLogin.vue';
 import account from '../views/account.vue';
+import home from '../views/Home.vue';
 
 Vue.use(VueRouter);
 
@@ -12,13 +13,21 @@ const routes = [
   {
     path: '/',
     redirect: {
-      name: 'login',
+      name: 'home',
     },
   },
   {
     path: '/login',
     name: 'login',
     component: login,
+    meta: {
+      guest: true,
+    },
+  },
+  {
+    path: '/home',
+    name: 'home',
+    component: home,
     meta: {
       guest: true,
     },
