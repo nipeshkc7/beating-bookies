@@ -74,4 +74,10 @@ export default {
     margin-top: 10px;
     padding-top:20px;
   }
+  @media only screen and (max-width: 600px) {
+    .callToAction{
+      padding: 40px 40px;
+    }
+  }
+
 </style>
