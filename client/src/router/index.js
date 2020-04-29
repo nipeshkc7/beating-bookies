@@ -6,6 +6,7 @@ import register from '../views/register.vue';
 import redirectLogin from '../views/redirectLogin.vue';
 import account from '../views/account.vue';
 import home from '../views/Home.vue';
+import contact from '../views/Contact.vue';
 
 Vue.use(VueRouter);
 
@@ -28,6 +29,14 @@ const routes = [
     path: '/home',
     name: 'home',
     component: home,
+    meta: {
+      guest: true,
+    },
+  },
+  {
+    path: '/Contact',
+    name: 'contact',
+    component: contact,
     meta: {
       guest: true,
     },

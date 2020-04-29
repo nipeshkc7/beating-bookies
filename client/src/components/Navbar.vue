@@ -7,12 +7,12 @@
     </template>
     <template v-if="is_user_logged_in === false" slot="start">
       <b-navbar-item tag="router-link" :to="{ path: '/' }">Home</b-navbar-item>
-      <b-navbar-item href="#">About Us</b-navbar-item>
-      <b-navbar-item href="#">Contact</b-navbar-item>
+      <b-navbar-item tag="router-link" :to="{ path: '/About' }">About Us</b-navbar-item>
+      <b-navbar-item tag="router-link" :to="{ path: '/Contact' }">Contact</b-navbar-item>
     </template>
     <template v-else slot="start">
           <b-navbar-item tag="router-link" :to="{ path: '/register' }">Home</b-navbar-item>
-          <b-navbar-item href="#">About Us</b-navbar-item>
+          <b-navbar-item tag="router-link" :to="{ path: '/About' }">About Us</b-navbar-item>
           <b-navbar-item>
       <b-field position="is-centered">
             <b-input placeholder="Search sporting events" type="search" icon="magnify">
