@@ -59,19 +59,19 @@
         <div class="tile is-ancestor" v-if="ViewStats">
           <div class="tile is-parent">
             <article class="tile is-child box notification is-info">
-              <p class="title">Average conversion</p>
+              <p class="title">Average conversion 💸</p>
               <p class="subtitle">{{ average_conversion }}</p>
             </article>
           </div>
           <div class="tile is-parent">
             <article class="tile is-child box notification is-success">
-              <p class="title">Total profits</p>
+              <p class="title">Total profits 📈</p>
               <p class="subtitle">{{ total_profits }}</p>
             </article>
           </div>
           <div class="tile is-parent">
             <article class="tile is-child box notification is-primary">
-              <p class="title">Biggest win this week</p>
+              <p class="title">Biggest win 😃</p>
               <p class="subtitle">{{ biggest_win }}</p>
             </article>
           </div>
@@ -81,16 +81,24 @@
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
                 <div class="level">
-                  <p class="title level-right">Your bets ...</p>
+                  <p class="title level-right"> 🚀 Your bets</p>
                   <b-button
                     class="level-left button is-primary"
                     icon-left="plus"
                     @click="isAddModalActive = true"
                   >Add Bet</b-button>
                 </div>
-                <BetsTable v-bind:perPage="perPage" :isPaginated="true" v-bind:betData="betData"
+                <BetsTable v-if="betData!=''"
+                v-bind:perPage="perPage" :isPaginated="true" v-bind:betData="betData"
                 @update-bet-data="getBetData()" @edit-bet-data="editBetData">
                 </BetsTable>
+                <div v-else class="empty-box">
+                <b-message type="is-info" has-icon>
+                  No bets have been placed yet. Please click on the 'Add bet'
+                  button to add your first bet. If you have any confusion regarding
+                  how to use this app. Please consult the <a href="#">FAQs</a>.
+        </b-message>
+                </div>
               </article>
             </div>
           </div>
@@ -190,6 +198,7 @@ export default {
       return `AUD ${biggestWin}`;
     },
     average_conversion() {
+      if (this.betData.length === 0) return '0 % conversion';
       const totalSuccess = this.betData.reduce((p, v) => {
         if (!Number.isNaN(Number(v.profits))) {
           return v.profits > 0 ? 1 + p : p;
@@ -210,5 +219,9 @@ export default {
 
 .subtitle {
   font-size: "90px";
+}
+
+.empty-box {
+  height:350px;
 }
 </style>

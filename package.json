@@ -1,16 +1,16 @@
 {
-    "name": "beatingbookies",
-    "description": "a really cool app",
-    "version": "1.0.0",
-    "engines": {
-      "node": "8.11.x"
-    },
-    "scripts": {
-        "start": "cd server && npm install && node server/index.js",
-        "build": "cd client && npm install && npm run build"
-      },
-      "repository": {
-        "type": "git",
-        "url": "https://github.com/nipeshkc7/matched-betting-tracker.git"
-      }
+  "name": "beatingbookies",
+  "description": "a really cool app",
+  "version": "1.0.0",
+  "engines": {
+    "node": "8.11.x"
+  },
+  "scripts": {
+    "start": "cd server && npm install && node server/index.js",
+    "build": "cd client && npm install && npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nipeshkc7/matched-betting-tracker.git"
   }
+}

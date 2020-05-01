@@ -13,7 +13,8 @@
     <template v-else slot="start">
           <b-navbar-item tag="router-link" :to="{ path: '/register' }">Home</b-navbar-item>
           <b-navbar-item tag="router-link" :to="{ path: '/About' }">About Us</b-navbar-item>
-          <b-navbar-item>
+          <b-navbar-item
+          class="remove-glow">
       <b-field position="is-centered">
             <b-input placeholder="Search sporting events" type="search" icon="magnify">
             </b-input>
@@ -25,6 +26,7 @@
     </template>
     <template slot="end">
       <b-navbar-item v-if="is_user_logged_in === false"
+       class="remove-glow"
        tag="router-link" :to="{ path: '/register' }">
         <div>
           <a class="button is-primary">
@@ -33,27 +35,33 @@
         </div>
       </b-navbar-item>
       <b-navbar-item v-if="is_user_logged_in === false"
-      tag="router-link" :to="{ path: '/login' }">
+      tag="router-link" :to="{ path: '/login' }"
+      class="remove-glow">
         <div>
           <a class="button is-light">Log in</a>
         </div>
       </b-navbar-item>
-      <b-navbar-item v-if="is_user_logged_in === true">
+      <b-navbar-item v-if="is_user_logged_in === true"
+      class="remove-glow">
         <b>{{ username }}</b>
       </b-navbar-item>
-      <b-navbar-item v-if="is_user_logged_in === true">
+      <b-navbar-item v-if="is_user_logged_in === true"
+      tag="router-link" :to="{ path: '/account' }"
+      class="remove-glow">
         <b-icon
           icon="account"
           size="is-medium">
         </b-icon>
       </b-navbar-item>
-      <b-navbar-item v-if="is_user_logged_in === true">
+      <b-navbar-item v-if="is_user_logged_in === true"
+      class="remove-glow">
         <b-icon
           icon="bell"
           size="is-medium">
         </b-icon>
       </b-navbar-item>
-      <b-navbar-item v-if="is_user_logged_in === true">
+      <b-navbar-item v-if="is_user_logged_in === true"
+      class="remove-glow">
         <div>
           <a v-on:click="logout" class="button is-primary">
             <strong>Logout</strong>
@@ -101,5 +109,9 @@ export default {
   padding: 0;
   width: 110px;
   max-height: none;
+}
+
+.remove-glow:hover{
+  background-color: #FFFFFF;
 }
 </style>

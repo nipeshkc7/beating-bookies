@@ -10,7 +10,7 @@
           Make the most out of the Bookmakers !
         </div>
         <div class="subtitle">
-          Join BB Now to start maximising your profits.
+          🚀 Join BB Now to start maximising your profits.
         </div>
         <div class="buttons buttonGroup">
             <b-button tag="router-link"
