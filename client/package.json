@@ -12,6 +12,7 @@
     "start": "npm run css-watch"
   },
   "dependencies": {
+    "aws-sdk": "^2.690.0",
     "axios": "^0.19.2",
     "buefy": "^0.8.15",
     "core-js": "^3.4.4",

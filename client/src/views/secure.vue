@@ -8,7 +8,7 @@
         has-modal-card
         trap-focus
         aria-role="dialog"
-        :can-cancel="['escape','outside']"
+        :can-cancel="['escape', 'outside']"
         aria-modal
         :height="60"
       >
@@ -21,12 +21,15 @@
         has-modal-card
         trap-focus
         aria-role="dialog"
-        :can-cancel="['escape','outside']"
+        :can-cancel="['escape', 'outside']"
         aria-modal
         :height="60"
       >
-        <EditBets v-bind:betData="betToEdit" v-bind:betType="betTypeToEdit"
-        v-if="isEditModalActive">
+        <EditBets
+          v-bind:betData="betToEdit"
+          v-bind:betType="betTypeToEdit"
+          v-if="isEditModalActive"
+        >
         </EditBets>
       </b-modal>
     </section>
@@ -36,77 +39,115 @@
         has-modal-card
         trap-focus
         aria-role="dialog"
-        :can-cancel="['escape','outside']"
+        :can-cancel="['escape', 'outside']"
         aria-modal
         :height="60"
       >
-        <Calculators
-        v-if="isCalculatorModalActive">
+        <Calculators v-if="isCalculatorModalActive">
         </Calculators>
       </b-modal>
     </section>
     <div class="columns">
       <div class="column is-2">
         <SideBar
-        @view-bets="ViewBetsTable=true; ViewStats=false; ViewSettleBets=false"
-        @view-stats="ViewStats=true; ViewBetsTable=false; ViewSettleBets=false"
-        @view-dashboard="ViewBetsTable=true; ViewStats=true; ViewSettleBets=true"
-        @add-bet="isAddModalActive=true"
-        @calculators="isCalculatorModalActive=true">
+          @view-bets="
+            ViewBetsTable = true;
+            ViewStats = false;
+            ViewSettleBets = false;
+          "
+          @view-stats="
+            ViewStats = true;
+            ViewBetsTable = false;
+            ViewSettleBets = false;
+          "
+          @view-dashboard="
+            ViewBetsTable = true;
+            ViewStats = true;
+            ViewSettleBets = true;
+          "
+          @add-bet="isAddModalActive = true"
+          @calculators="isCalculatorModalActive = true"
+        >
         </SideBar>
       </div>
       <div class="container main-content column">
         <div class="tile is-ancestor" v-if="ViewStats">
           <div class="tile is-parent">
-            <article class="tile is-child box notification is-info">
+            <article
+              class="tile is-child box notification is-info"
+            >
               <p class="title">Average conversion 💸</p>
-              <p class="subtitle">{{ average_conversion }}</p>
+              <p class="subtitle">
+                {{ average_conversion }}
+              </p>
             </article>
           </div>
           <div class="tile is-parent">
-            <article class="tile is-child box notification is-success">
+            <article
+              class="tile is-child box notification is-success"
+            >
               <p class="title">Total profits 📈</p>
               <p class="subtitle">{{ total_profits }}</p>
             </article>
           </div>
           <div class="tile is-parent">
-            <article class="tile is-child box notification is-primary">
+            <article
+              class="tile is-child box notification is-primary"
+            >
               <p class="title">Biggest win 😃</p>
               <p class="subtitle">{{ biggest_win }}</p>
             </article>
           </div>
         </div>
         <div class="tile is-ancestor">
-          <div class="tile is-8 is-vertical" v-if="ViewBetsTable">
+          <div
+            class="tile is-8 is-vertical"
+            v-if="ViewBetsTable"
+          >
             <div class="tile is-parent">
               <article class="tile is-child box is-info">
                 <div class="level">
-                  <p class="title level-right"> 🚀 Your bets</p>
+                  <p class="title level-right">
+                    🚀 Your bets
+                  </p>
                   <b-button
                     class="level-left button is-primary"
                     icon-left="plus"
                     @click="isAddModalActive = true"
-                  >Add Bet</b-button>
+                    >Add Bet</b-button
+                  >
                 </div>
-                <BetsTable v-if="betData!=''"
-                v-bind:perPage="perPage" :isPaginated="true" v-bind:betData="betData"
-                @update-bet-data="getBetData()" @edit-bet-data="editBetData">
+                <BetsTable
+                  v-if="betData != ''"
+                  v-bind:perPage="perPage"
+                  :isPaginated="true"
+                  v-bind:betData="betData"
+                  @update-bet-data="getBetData()"
+                  @edit-bet-data="editBetData"
+                >
                 </BetsTable>
                 <div v-else class="empty-box">
-                <b-message type="is-info" has-icon>
-                  No bets have been placed yet. Please click on the 'Add bet'
-                  button to add your first bet. If you have any confusion regarding
-                  how to use this app. Please consult the <a href="#">FAQs</a>.
-        </b-message>
+                  <b-message type="is-info" has-icon>
+                    No bets have been placed yet. Please
+                    click on the 'Add bet' button to add
+                    your first bet. If you have any
+                    confusion regarding how to use this app.
+                    Please consult the <a href="#">FAQs</a>.
+                  </b-message>
                 </div>
               </article>
             </div>
           </div>
-          <div class="tile is-4 is-vertical" v-if="ViewSettleBets">
+          <div
+            class="tile is-4 is-vertical"
+            v-if="ViewSettleBets"
+          >
             <div class="tile is-parent">
-              <article class="tile is-child box notification is-info">
+              <article
+                class="tile is-child box notification is-info"
+              >
                 <p class="title">Latest sports data</p>
-                <p class="subtitle"> Coming Soon ! </p>
+                <p class="subtitle">Coming Soon !</p>
               </article>
             </div>
           </div>
@@ -118,6 +159,7 @@
 </template>
 
 <script>
+import AWS from 'aws-sdk';
 import Navbar from '../components/Navbar.vue';
 import BetsTable from '../components/BetsTable.vue';
 import SideBar from '../components/SideBar.vue';
@@ -125,6 +167,14 @@ import Footer from '../components/Footer.vue';
 import AddBets from '../components/AddBets.vue';
 import EditBets from '../components/EditBets.vue';
 import Calculators from '../components/Calculators.vue';
+
+AWS.config.update({
+  region: process.env.VUE_APP_AWS_REGION,
+  accessKeyId: process.env.VUE_APP_AWS_ACCESS_KEY_ID,
+  secretAccessKey: process.env.VUE_APP_AWS_SECRET_ACCESS_KEY,
+});
+
+const docClient = new AWS.DynamoDB.DocumentClient();
 
 export default {
   name: 'Secure',
@@ -143,6 +193,7 @@ export default {
       server_msg: '',
       betTypeToEdit: '',
       betData: [],
+      latestMatches: [],
     };
   },
   components: {
@@ -156,15 +207,21 @@ export default {
   },
   created() {
     this.getBetData();
+    this.getLatestMatches();
   },
   methods: {
     getBetData() {
       this.$http
-        .get(`${process.env.VUE_APP_SERVER_URL}bets/getAll`, {
-          params: {
-            user_id: JSON.parse(localStorage.getItem('user')).id,
+        .get(
+          `${process.env.VUE_APP_SERVER_URL}bets/getAll`,
+          {
+            params: {
+              user_id: JSON.parse(
+                localStorage.getItem('user'),
+              ).id,
+            },
           },
-        })
+        )
         .then((response) => {
           this.betData = response.data;
         })
@@ -177,15 +234,35 @@ export default {
       this.betTypeToEdit = bet.type;
       if (bet.type === this.betToEdit.type) this.isEditModalActive = true;
     },
+    getLatestMatches() {
+      const params = {
+        TableName: process.env.VUE_APP_AWS_TABLE_NAME,
+        ProjectionExpression: 'id, betsDate, matches',
+      };
+      docClient.scan(params, this.onScan);
+    },
+    onScan(err, data) {
+      if (err) {
+        console.error(
+          'Unable to scan the table. Error JSON:',
+          JSON.stringify(err, null, 2),
+        );
+      } else {
+        this.latestMatches = [...data.Items];
+      }
+    },
   },
   computed: {
     total_profits() {
-      const totalProfit = this.betData.reduce((accumulator, currentValue) => {
-        if (!Number.isNaN(Number(currentValue.profits))) {
-          return accumulator + currentValue.profits;
-        }
-        return accumulator;
-      }, 0);
+      const totalProfit = this.betData.reduce(
+        (accumulator, currentValue) => {
+          if (!Number.isNaN(Number(currentValue.profits))) {
+            return accumulator + currentValue.profits;
+          }
+          return accumulator;
+        },
+        0,
+      );
       return `AUD ${totalProfit}`;
     },
     biggest_win() {
@@ -222,6 +299,6 @@ export default {
 }
 
 .empty-box {
-  height:350px;
+  height: 350px;
 }
 </style>
