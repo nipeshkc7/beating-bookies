@@ -143,11 +143,31 @@
             v-if="ViewSettleBets"
           >
             <div class="tile is-parent">
-              <article
-                class="tile is-child box notification is-info"
-              >
-                <p class="title">Latest sports data</p>
-                <p class="subtitle">Coming Soon !</p>
+              <article class="tile is-child box">
+                <p class="title">Upcoming matches</p>
+                <article>
+                  <a
+                    v-for="match in latestMatches[0].matches.slice(
+                      4
+                    )"
+                    :key="match.commence_time"
+                    class="panel-block"
+                  >
+                  <b-tooltip :label="(new Date(match.commence_time * 1000)).toDateString()"
+                  type="is-dark">
+                    <span class="panel-icon">
+                      <i
+                        class="fas fa-futbol"
+                        aria-hidden="true"
+                      ></i>
+                    </span>
+                    {{ getMatchupString(match.teams) }}
+                    <div class="badge">
+                    <b-tag type="is-info"> {{ match.sport_nice }}</b-tag>
+                    </div>
+                  </b-tooltip>
+                  </a>
+                </article>
               </article>
             </div>
           </div>
@@ -251,6 +271,12 @@ export default {
         this.latestMatches = [...data.Items];
       }
     },
+    getMatchupString(teamArray) {
+      return teamArray.reduce((acc, team, index) => {
+        if (index !== teamArray.length - 1) return `${acc} ${team} vs`;
+        return `${acc} ${team}`;
+      }, '');
+    },
   },
   computed: {
     total_profits() {
@@ -300,5 +326,9 @@ export default {
 
 .empty-box {
   height: 350px;
+}
+
+.badge{
+  margin-left: 0.2em;
 }
 </style>
