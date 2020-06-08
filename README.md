@@ -24,7 +24,7 @@
 
 A free-to-use application made for matched-bettors. Used for tracking betting activities, profits along with matched-betting tools like dutching calculator, back-lay calculators. This application has support for Google Sign In and regular email sign in.
 
-This is a completely API based backend using Node.js and front-end done using Vue.js.
+This is a completely API based backend using Node.js and front-end done using Vue.js. Uses [odds-api](https://the-odds-api.com) to get latest sports data in the 'AU' region.
 
 ## Motivation
 
@@ -106,7 +106,11 @@ NODE_ENV =          // 'dev' or 'test' or 'prod'
 
 You will also need the following environment variables in the vue environment:
 ```
-VUE_APP_SERVER_URL = 
+VUE_APP_SERVER_URL=
+VUE_APP_AWS_ACCESS_KEY_ID=
+VUE_APP_AWS_SECRET_ACCESS_KEY=
+VUE_APP_AWS_REGION=
+VUE_APP_AWS_TABLE_NAME= 
 ```
 
 
