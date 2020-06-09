@@ -24,7 +24,7 @@
 
 A free-to-use application made for matched-bettors. Used for tracking betting activities, profits along with matched-betting tools like dutching calculator, back-lay calculators. This application has support for Google Sign In and regular email sign in.
 
-This is a completely API based backend using Node.js and front-end done using Vue.js. Uses [odds-api](https://the-odds-api.com) to get latest sports data in the 'AU' region.
+This is a completely API based backend using Node.js and front-end done using Vue.js. Uses [odds-api](https://the-odds-api.com) to get latest sports data in the 'AU'(Australian) region.
 
 ## Motivation
 
