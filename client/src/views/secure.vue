@@ -213,7 +213,7 @@ export default {
       server_msg: '',
       betTypeToEdit: '',
       betData: [],
-      latestMatches: [],
+      // latestMatches: [],
     };
   },
   components: {
@@ -268,7 +268,8 @@ export default {
           JSON.stringify(err, null, 2),
         );
       } else {
-        this.latestMatches = [...data.Items];
+        // this.latestMatches = [...data.Items];
+        this.$store.dispatch('latestMatches/updateMatches', [...data.Items]);
       }
     },
     getMatchupString(teamArray) {
@@ -310,6 +311,9 @@ export default {
       }, 0);
       const averageConversion = (totalSuccess / this.betData.length) * 100;
       return `${averageConversion} %`;
+    },
+    latestMatches() {
+      return this.$store.state.latestMatches.matchArray;
     },
   },
 };
