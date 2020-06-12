@@ -16,10 +16,11 @@
           <b-navbar-item
           class="remove-glow">
       <b-field position="is-centered">
-            <b-input placeholder="Search sporting events" type="search" icon="magnify">
+            <b-input placeholder="Search sporting events" type="search"
+            icon="magnify" v-model="searchTerm">
             </b-input>
             <p class="control">
-                <button class="button is-primary">Search</button>
+                <button class="button is-primary" v-on:click="search">Search</button>
             </p>
       </b-field>
       </b-navbar-item>
@@ -73,12 +74,15 @@
 </template>
 
 <script>
+import Fuse from 'fuse.js';
+
 export default {
   name: 'Navbar',
   data() {
     return {
       is_user_logged_in: false,
       username: '',
+      searchTerm: '',
     };
   },
   created() {
@@ -95,6 +99,20 @@ export default {
     logout() {
       localStorage.clear();
       this.$router.push('/');
+    },
+    search() {
+      const fuse = new Fuse(this.$store.state.latestMatches.matchArray[0].matches, {
+        keys: ['teams'],
+      });
+      console.log(fuse.search(this.searchTerm));
+    },
+  },
+  computed: {
+    searchResults() {
+      const fuse = new Fuse(this.$store.state.latestMatches.matchArray[0].matches, {
+        keys: ['teams'],
+      });
+      return fuse.search(this.searchTerm);
     },
   },
   props: {
