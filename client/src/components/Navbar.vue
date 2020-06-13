@@ -15,13 +15,26 @@
           <b-navbar-item tag="router-link" :to="{ path: '/About' }">About Us</b-navbar-item>
           <b-navbar-item
           class="remove-glow">
-      <b-field position="is-centered">
-            <b-input placeholder="Search sporting events" type="search"
-            icon="magnify" v-model="searchTerm">
-            </b-input>
-            <p class="control">
-                <button class="button is-primary" v-on:click="search">Search</button>
-            </p>
+      <b-field position="is-centered" class="search-bar">
+            <b-autocomplete label="" :data="searchResults"
+              placeholder="Search matches"
+              v-model="searchTerm"
+              icon="magnify"
+              @typing="search"
+              :check-infinite-scroll="true">
+              <template slot-scope="props">
+                <div class="media">
+                  <div class="media-content">
+                    {{ getMatchupString(props.option.item.teams) }}
+                  </div>
+                  <div class="media-right">
+                    <div class="badge">
+                      <b-tag type="is-info"> {{ props.option.item.sport_nice }}</b-tag>
+                    </div>
+                  </div>
+                </div>
+              </template>
+            </b-autocomplete>
       </b-field>
       </b-navbar-item>
     </template>
@@ -83,6 +96,7 @@ export default {
       is_user_logged_in: false,
       username: '',
       searchTerm: '',
+      searchResults: [],
     };
   },
   created() {
@@ -105,14 +119,13 @@ export default {
         keys: ['teams'],
       });
       console.log(fuse.search(this.searchTerm));
+      this.searchResults = [...fuse.search(this.searchTerm)];
     },
-  },
-  computed: {
-    searchResults() {
-      const fuse = new Fuse(this.$store.state.latestMatches.matchArray[0].matches, {
-        keys: ['teams'],
-      });
-      return fuse.search(this.searchTerm);
+    getMatchupString(teamArray) {
+      return teamArray.reduce((acc, team, index) => {
+        if (index !== teamArray.length - 1) return `${acc} ${team} vs`;
+        return `${acc} ${team}`;
+      }, '');
     },
   },
   props: {
@@ -131,5 +144,9 @@ export default {
 
 .remove-glow:hover{
   background-color: #FFFFFF;
+}
+
+.search-bar{
+  width: 26em;
 }
 </style>
