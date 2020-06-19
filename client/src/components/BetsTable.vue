@@ -30,7 +30,7 @@ export default {
   props: {
     perPage: String,
     isPaginated: Boolean,
-    betData: Array,
+    // betData: Array,
   },
   data() {
     return {
@@ -107,6 +107,11 @@ export default {
         position: 'is-bottom',
         type: 'is-danger',
       });
+    },
+  },
+  computed: {
+    betData() {
+      return this.$store.state.betData.betData;
     },
   },
 };

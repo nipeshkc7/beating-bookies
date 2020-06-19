@@ -212,8 +212,6 @@ export default {
       betToEdit: {},
       server_msg: '',
       betTypeToEdit: '',
-      betData: [],
-      // latestMatches: [],
     };
   },
   components: {
@@ -231,23 +229,7 @@ export default {
   },
   methods: {
     getBetData() {
-      this.$http
-        .get(
-          `${process.env.VUE_APP_SERVER_URL}bets/getAll`,
-          {
-            params: {
-              user_id: JSON.parse(
-                localStorage.getItem('user'),
-              ).id,
-            },
-          },
-        )
-        .then((response) => {
-          this.betData = response.data;
-        })
-        .catch((error) => {
-          console.log(error);
-        });
+      this.$store.dispatch('betData/updateFromServer');
     },
     editBetData(bet) {
       Object.assign(this.betToEdit, bet);
@@ -268,7 +250,6 @@ export default {
           JSON.stringify(err, null, 2),
         );
       } else {
-        // this.latestMatches = [...data.Items];
         this.$store.dispatch('latestMatches/updateMatches', [...data.Items]);
       }
     },
@@ -314,6 +295,9 @@ export default {
     },
     latestMatches() {
       return this.$store.state.latestMatches.matchArray;
+    },
+    betData() {
+      return this.$store.state.betData.betData;
     },
   },
 };
