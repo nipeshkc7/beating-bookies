@@ -10,6 +10,7 @@
         aria-role="dialog"
         :can-cancel="['escape', 'outside']"
         aria-modal
+        :destroy-on-hide="true"
         :height="60"
       >
         <AddBets></AddBets>

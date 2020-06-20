@@ -83,7 +83,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="closeModal()">Close</button>
+              <button class="button" type="button" @click="$parent.close()">Close</button>
               <button class="button is-primary" @click="addBet()">Add Bet</button>
             </footer>
           </div>
@@ -318,9 +318,10 @@ export default {
           ...this.blay_bet,
         })
         .then((response) => {
-          this.successMsg('Successfully added new bet');
+          // this.successMsg('Successfully added new bet');
           console.log(response);
           this.$store.dispatch('betData/updateFromServer');
+          this.$parent.close();
         })
         .catch((error) => {
           this.failureMsg(error);
