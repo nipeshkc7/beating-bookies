@@ -113,6 +113,9 @@ VUE_APP_AWS_REGION=
 VUE_APP_AWS_TABLE_NAME= 
 ```
 
+### Lambda Dependency
+
+This app uses an AWS lambda function to periodically pull latest sports data and odds and stores it in DynamoDb. The source code can be found [here](https://github.com/nipeshkc7/get-odds-api-lambda).
 
 ## Let's Connect
 
