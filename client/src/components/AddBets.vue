@@ -318,7 +318,6 @@ export default {
           ...this.blay_bet,
         })
         .then((response) => {
-          // this.successMsg('Successfully added new bet');
           console.log(response);
           this.$store.dispatch('betData/updateFromServer');
           this.$parent.close();
@@ -370,7 +369,6 @@ export default {
       });
     },
     closeModal() {
-      // this.$router.go();
     },
   },
 };
