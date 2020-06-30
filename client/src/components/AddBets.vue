@@ -84,7 +84,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="$parent.close()">Close</button>
-              <button class="button is-primary" @click="addBet()">Add Bet</button>
+              <button class="button is-primary" type="button" @click="addBet()">Add Bet</button>
             </footer>
           </div>
         </form>
@@ -160,7 +160,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="$parent.close()">Close</button>
-              <button class="button is-primary" @click="addD2WBet()">Add Bet</button>
+              <button class="button is-primary" type="button" @click="addD2WBet()">Add Bet</button>
             </footer>
           </div>
         </form>
@@ -253,7 +253,7 @@
             </section>
             <footer class="modal-card-foot">
               <button class="button" type="button" @click="$parent.close()">Close</button>
-              <button class="button is-primary" @click="addD3WBet()">Add Bet</button>
+              <button class="button is-primary" type="button" @click="addD3WBet()">Add Bet</button>
             </footer>
           </div>
         </form>
