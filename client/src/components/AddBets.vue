@@ -320,6 +320,7 @@ export default {
         .then((response) => {
           console.log(response);
           this.$store.dispatch('betData/updateFromServer');
+          this.successMsg('Successfully added new bet');
           this.$parent.close();
         })
         .catch((error) => {
