@@ -159,7 +159,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="closeModal()">Close</button>
+              <button class="button" type="button" @click="$parent.close()">Close</button>
               <button class="button is-primary" @click="addD2WBet()">Add Bet</button>
             </footer>
           </div>
@@ -252,7 +252,7 @@
               </b-field>
             </section>
             <footer class="modal-card-foot">
-              <button class="button" type="button" @click="closeModal()">Close</button>
+              <button class="button" type="button" @click="$parent.close()">Close</button>
               <button class="button is-primary" @click="addD3WBet()">Add Bet</button>
             </footer>
           </div>
@@ -367,8 +367,6 @@ export default {
         position: 'is-bottom',
         type: 'is-danger',
       });
-    },
-    closeModal() {
     },
   },
 };
