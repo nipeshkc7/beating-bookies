@@ -20,6 +20,8 @@
     </a>
 </p>
 
+> :warning: **BeatingBookies is no longer being actively maintained**: Legacy version available at https://beatingbookies.netlify.app
+
 ## Overview
 
 A free-to-use application made for matched-bettors. Used for tracking betting activities, profits along with matched-betting tools like dutching calculator, back-lay calculators. This application has support for Google Sign In and regular email sign in.
