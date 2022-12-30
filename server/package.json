@@ -23,7 +23,7 @@
     "express": "^4.17.1",
     "googleapis": "^47.0.0",
     "jsonwebtoken": "^8.5.1",
-    "mocha": "^7.1.1",
+    "mocha": "^10.2.0",
     "morgan": "^1.10.0",
     "sqlite-async": "^1.0.12",
     "sqlite3": "^4.1.1"
